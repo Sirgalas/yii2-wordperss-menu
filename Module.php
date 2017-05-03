@@ -2,20 +2,27 @@
 
 namespace sirgalas\menu;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * transliter module definition class
  */
 class Module extends \yii\base\Module
 {
-
+    /**
+     * @var
+     */
     public $model;
+
+
     /**
      * @inheritdoc
      */
     public function getAllModels(){
-        $model = $this->model;
-        return $model::find()->limit(50)->all();
+        if(isset($this->model)) {
+           $model = $this->model['class'];
+            return ArrayHelper::map($model::find()->asArray()->limit(50)->all(),$this->model['alias'],$this->model['title']);
+        }
     }
 
     /**
