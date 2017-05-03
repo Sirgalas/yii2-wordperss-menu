@@ -8,12 +8,14 @@ use Yii;
  */
 class Module extends \yii\base\Module
 {
+
+    public $model;
     /**
      * @inheritdoc
      */
-    public static function t($message, $params = [], $language = null)
-    {
-        return Yii::t('sergalas/i18n', $message, $params, $language);
+    public function getAllModels(){
+        $model = $this->model;
+        return $model::find()->limit(50)->all();
     }
 
     /**
