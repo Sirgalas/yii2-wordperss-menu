@@ -8,9 +8,9 @@
 
 namespace sirgalas\menu\models;
 
-use yii\db\ActiveRecord;
+use yii\base\Model;
 
-class Menu extends ActiveRecord
+class Menu extends Model
 {
 
 }
