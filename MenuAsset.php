@@ -11,8 +11,8 @@ use yii\web\AssetBundle;
 
 class MenuAsset extends AssetBundle
 {
-    public $basePath =__DIR__ . '/assets';
-    public $baseUrl=__DIR__ . '/assets';
+    public $sourcePath =__DIR__ . '/assets';
+
     public $css = [
         'css/style.css',    
     ];
