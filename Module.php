@@ -14,19 +14,27 @@ class Module extends \yii\base\Module
      */
     public $model;
     public $models;
-
+    public $label;
     /**
      * @inheritdoc
      */
     public function getAllModels(){
         if(isset($this->model)) {
-           $model = ArrayHelper::map($this->model['class']::find()->asArray()->limit(50)->all(),$this->model['alias'],$this->model['title']);;
+            if(isset($models['label'])){
+                $label=$this->model['label'];
+            }else{
+                $label='выбрать '.$this->model['class'];
+            }
+           $model[$label] = ArrayHelper::map($this->model['class']::find()->asArray()->limit(5)->all(),$this->model['alias'],$this->model['title']);;
         }
         if(isset($this->models)){
-            $counter=0;
             foreach ($this->models as $models){
-                $model[$counter]=ArrayHelper::map($models['class']::find()->asArray()->limit(50)->all(),$models['alias'],$models['title']);
-            $counter++;
+                if(isset($models['label'])){
+                    $label=$models['label'];
+                }else{
+                    $label='выбрать '.$models['class'];
+                }
+                $model[$label]=ArrayHelper::map($models['class']::find()->asArray()->limit(5)->all(),$models['alias'],$models['title']);
             }
         }
         return $model;
