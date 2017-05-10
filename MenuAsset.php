@@ -14,7 +14,7 @@ class MenuAsset extends AssetBundle
     public $sourcePath =__DIR__ . '/assets';
 
     public $css = [
-        'css/style.css',    
+        'css/style.css',
     ];
     public $js=[
         'js/script.js',
