@@ -15,6 +15,7 @@ class Module extends \yii\base\Module
     public $model;
     public $models;
     public $label;
+    public $controllerNamespace = 'sirgalas\menu\controllers';
     /**
      * @inheritdoc
      */
@@ -38,6 +39,13 @@ class Module extends \yii\base\Module
             }
         }
         return $model;
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        // custom initialization code goes here
     }
 
     /**

@@ -12,11 +12,13 @@ use Yii;
 class MenugetController extends Controller
 {
        public function actionIndex(){
+           $this->layout='main.php';
            $module=$this->module;
            $model= new MenuGet();
            return $this->render('create',[
                'allModels'=>$module->getAllModels(),
                'model'=>$model
            ]);
+           
        }
 }
