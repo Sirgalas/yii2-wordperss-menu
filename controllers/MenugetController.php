@@ -15,8 +15,9 @@ class MenugetController extends Controller
            $module=$this->module;
            $model= new MenuGet();
            return $this->render('create',[
-               'allModels'=>$module->getAllModels(),
-               'model'=>$model
+               'allModels'  =>  $module->getAllModels(),
+               'model'      =>  $model,
+               'module'     =>  $module
            ]);
            
        }

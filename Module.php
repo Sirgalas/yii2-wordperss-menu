@@ -26,7 +26,7 @@ class Module extends \yii\base\Module
             }else{
                 $label='выбрать '.$this->model['class'];
             }
-           $model[$label] = ArrayHelper::map($this->model['class']::find()->asArray()->limit(5)->all(),$this->model['alias'],$this->model['title']);;
+           $model[$label] = ArrayHelper::map($this->model['class']::find()->asArray()->all(),$this->model['alias'],$this->model['title']);;
         }
         if(isset($this->models)){
             foreach ($this->models as $models){
@@ -35,7 +35,7 @@ class Module extends \yii\base\Module
                 }else{
                     $label='выбрать '.$models['class'];
                 }
-                $model[$label]=ArrayHelper::map($models['class']::find()->asArray()->limit(5)->all(),$models['alias'],$models['title']);
+                $model[$label]=ArrayHelper::map($models['class']::find()->asArray()->all(),$models['alias'],$models['title']);
             }
         }
         return $model;

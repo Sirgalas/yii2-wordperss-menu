@@ -7,15 +7,14 @@ use kartik\select2\Select2;
 class MenuGet extends Menu
 {
     public function addSelect($models){
-        $diff = count($models) - count($models, COUNT_RECURSIVE);
-
+       $diff = count($models) - count($models, COUNT_RECURSIVE);
         if($diff){
-            foreach ($models as $model){
+            foreach ($models as $key => $model){
                 $select[]=Select2::widget([
                     'name' => 'state_2',
                     'value' => '',
                     'data' => $model,
-                    'options' => ['placeholder' => 'Select states ...'],
+                    'options' => ['placeholder' => $key],
                     'pluginEvents' => [
                         "select2:selecting" => "function(e) { 
                             var print = log(e);

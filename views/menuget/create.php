@@ -9,6 +9,6 @@ use yii\web\View;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model]) ?>
+    <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model,'module'=>$module]) ?>
 
 </div>

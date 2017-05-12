@@ -13,11 +13,17 @@ MenuAsset::register($this);
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
         <?php
+
         $menu=new MenuGet();
         $select=$menu->addSelect($allModels);
-        if(is_array($select)){
+
+       if(is_array($select)){
             foreach ($select as $sel){
+                echo '<div class="form-group field-menu">';
+               
                 echo $sel;
+                echo '</div>';
+
             }
         }else{
             echo $select;
