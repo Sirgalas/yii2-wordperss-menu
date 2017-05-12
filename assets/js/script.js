@@ -1,5 +1,12 @@
 jQuery(document).ready(function(){
-    $(window).load(function () {
-        console.log('e');
-    });
+
+   
 });
+function log (evt) {
+    if (!evt) {
+        var args = '{}';
+    } else {
+        var args = evt.params;
+    }
+    return args;
+}

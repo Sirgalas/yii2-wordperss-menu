@@ -1,10 +1,11 @@
 <?php
-use sirgalas\menu\MenuAsset;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use sirgalas\menu\models\MenuGet;
 use yii\web\View;
+use sirgalas\menu\MenuAsset;
 MenuAsset::register($this);
 ?>
 <div class="frontend-setup-form col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -13,7 +14,14 @@ MenuAsset::register($this);
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
         <?php
         $menu=new MenuGet();
-        echo $menu->addSelect($allModels);
+        $select=$menu->addSelect($allModels);
+        if(is_array($select)){
+            foreach ($select as $sel){
+                echo $sel;
+            }
+        }else{
+            echo $select;
+        }
 
         /*= $form->field($model, 'key_setup')->textInput(['maxlength' => true])->label(Yii::t('backend','MENUTITLE')) ?>
         <?php echo $form->field($model, 'menus')->widget(Select2::classname(), [
@@ -66,9 +74,9 @@ MenuAsset::register($this);
     </div>
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+    </div>*/
 
-    <?php ActiveForm::end();*/ ?>
+     ActiveForm::end();?>
     <div id="test"><div>
 </div>
 

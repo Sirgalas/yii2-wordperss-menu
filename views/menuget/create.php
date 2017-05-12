@@ -11,5 +11,4 @@ use yii\web\View;
 
     <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model]) ?>
 
-
 </div>

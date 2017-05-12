@@ -8,24 +8,24 @@ class MenuGet extends Menu
 {
     public function addSelect($models){
         $diff = count($models) - count($models, COUNT_RECURSIVE);
+
         if($diff){
             foreach ($models as $model){
-                $select=Select2::widget([
+                $select[]=Select2::widget([
                     'name' => 'state_2',
                     'value' => '',
                     'data' => $model,
                     'options' => ['placeholder' => 'Select states ...'],
                     'pluginEvents' => [
                         "select2:selecting" => "function(e) { 
-                         alert(e);
-                        var id = document.getElementById('test'); 
-                        id.innerHTML='e';
+                            var print = log(e);
+                            var test = document.getElementById('test');
+                            var text = print.args.data.text;
+                            var alias = print.args.data.id;
+                            test.innerHTML=alias
                         }",
                         "select2:select" => "function(e) { 
-                        
-                            var id = document.getElementById('test'); 
-                            
-                            id.innerHTML=e;
+                            console.log('e');
                          }"
                     ]
                 ]);
