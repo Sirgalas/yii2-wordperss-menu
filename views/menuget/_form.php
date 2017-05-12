@@ -20,41 +20,15 @@ MenuAsset::register($this);
        if(is_array($select)){
             foreach ($select as $sel){
                 echo '<div class="form-group field-menu">';
-               
                 echo $sel;
                 echo '</div>';
-
             }
         }else{
             echo $select;
         }
-
-        /*= $form->field($model, 'key_setup')->textInput(['maxlength' => true])->label(Yii::t('backend','MENUTITLE')) ?>
-        <?php echo $form->field($model, 'menus')->widget(Select2::classname(), [
-            'data' => $cat,
-            'language' => 'ru',
-            'options' => ['placeholder' => Yii::t('backend','ADDMENUCAT')],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ])->label('Категории');?>
-        <a href="#" id="addCatMenu" class="btn btn-success" ><?= Yii::t('backend','ADDMENUCAT') ?></a>
-
-
-        <?php if(is_array($page)){
-            echo $form->field($model, 'pages')->widget(Select2::classname(), [
-                'data' => $page,
-                'language' => 'ru',
-                'options' => ['placeholder' => Yii::t('backend','ADDMENUPAGE')],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-
-            ])->label('Страницы');
-        }* /?>
-        <a href="#" id="addPageMenu" class="btn btn-success" ><?= Yii::t('backend','ADDMENUPAGE') ?></a>
-        <?= $form->field($model, 'vaelye')->hiddenInput()->label(false); ?>
-        <?= $form->field($model, 'description')->hiddenInput(['value'=>'menus'])->label(false); ?>
+        ActiveForm::end();?>
+        <?php /*= $form->field($model, 'vaelye')->hiddenInput()->label(false); ?>
+        <?= $form->field($model, 'description')->hiddenInput(['value'=>'menus'])->label(false);*/ ?>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
         <ul id="sortable">
@@ -79,10 +53,10 @@ MenuAsset::register($this);
         <a href="#" id="secure" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
     </div>
     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>*/
+        <?php /*= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])*/ ?>
+    </div>
 
-     ActiveForm::end();?>
+
     <div id="test"><div>
 </div>
 

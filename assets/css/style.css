@@ -1,0 +1,5 @@
+#sortable li {
+    font-size: 15px;
+    list-style: outside none none;
+    padding: 10px 50px;
+}
