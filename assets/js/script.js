@@ -23,4 +23,4 @@ function log (evt) {
     } else {
         var args = evt.params;
     }
-    return args;
+    return args;}
