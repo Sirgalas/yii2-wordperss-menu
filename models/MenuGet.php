@@ -18,10 +18,12 @@ class MenuGet extends Menu
                     'pluginEvents' => [
                         "select2:selecting" => "function(e) { 
                             var print = log(e);
-                            var test = document.getElementById('test');
+                            var sortable = document.getElementById('sortable');
+                            var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var alias = print.args.data.id;
-                            test.innerHTML=alias
+                            var input = '<li class=\"ui-state-default wells\"  data-alias=\"'+alias+'\" data-title=\"'+text+'\">'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
+                            sortable.innerHTML=value +''+ input;
                         }",
                         "select2:select" => "function(e) { 
                             console.log('e');
