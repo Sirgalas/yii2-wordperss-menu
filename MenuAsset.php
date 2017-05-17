@@ -18,6 +18,7 @@ class MenuAsset extends AssetBundle
     ];
     public $js=[
         'js/script.js',
+        'js/nav.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

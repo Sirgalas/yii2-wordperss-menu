@@ -18,7 +18,7 @@ class MenuGet extends Menu
                     'pluginEvents' => [
                         "select2:selecting" => "function(e) { 
                             var print = log(e);
-                            var sortable = document.getElementById('sortable');
+                            var sortable = document.getElementById('menu-to-edit');
                             var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var alias = print.args.data.id;

@@ -1,5 +1,54 @@
-#sortable li {
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.sortable-ui{
+    min-height: 1000px;
+    display: block;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #d2d6de;
+}
+.col-lg-6 .sortable-ui{
+    min-height: 900px;
+}
+.col-lg-6 .sortable-ui li{
+    height: 70px;
+}
+
+.draggable{
+    z-index: 5000;
+}
+
+.sortable-ui li{
+    list-style: none;
+    padding: 10px 50px;
+    font-size: 15px;
+    width: 50%;
+}
+.sortable-ui li span{
+    float: right;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.sortable-ui li {
     font-size: 15px;
     list-style: outside none none;
     padding: 10px 50px;
 }
+

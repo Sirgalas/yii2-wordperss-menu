@@ -10,7 +10,7 @@ use yii\web\View;
             <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model,'module'=>$module]) ?>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-            <ul id="sortable">
+            <ul id="menu-to-edit" class="sortable-ui">
                 <?php  if(isset($value)){
                     foreach ($value as $val){
                         if($val->cat == 1) {

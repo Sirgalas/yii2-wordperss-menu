@@ -10,7 +10,7 @@ use yii\web\View;
             <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model,'module'=>$module]) ?>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-            <ul id="sortable">
+            <ul id="menu-to-edit" class="sortable-ui">
                
             </ul>
             <a href="#" id="secure" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
