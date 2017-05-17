@@ -6,8 +6,8 @@ jQuery(document).ready(function(){
     $(".sortable-ui").sortable({
         start: function(event, ui) {
             startX=event.clientX;
-            console.log(event);
-            console.log(ui.sender);
+
+            console.log(ui);
 
         },
         sort: function(event, ui){
@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
                     ui.item.removeClass(removeClassBootstrap);
                 }
                 var classBootstrap = 'col-md-offset-' + countEvent;
-                console.log(classBootstrap);
+
                 ui.item.addClass(classBootstrap);
             }
         },
