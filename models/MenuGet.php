@@ -26,7 +26,7 @@ class MenuGet extends Menu
                             sortable.innerHTML=value +''+ input;
                         }",
                         "select2:select" => "function(e) { 
-                            console.log('e');
+                            
                          }"
                     ]
                 ]);
