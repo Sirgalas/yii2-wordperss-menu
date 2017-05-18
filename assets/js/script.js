@@ -1,38 +1,32 @@
 jQuery(document).ready(function(){
     var startX=0;
     var count=1;
-    var deth=25;
-    var countEvent=1;
+    var depth=25;
+    var division=0;
+    var classBootstrap;
     $(".sortable-ui").sortable({
         start: function(event, ui) {
             startX=event.clientX;
-
-            console.log(ui);
-
+            ui.item.removeClass(classBootstrap);
         },
         sort: function(event, ui){
-            var summ =event.clientX-startX;
-            if(summ>=deth) {
-                ui.item.addClass('deth');
-                var removeClassBootstrap='col-md-offset-' + (countEvent-1);
-                if(ui.item.hasClass(removeClassBootstrap)){
-                    ui.item.removeClass(removeClassBootstrap);
-                }
-                var classBootstrap = 'col-md-offset-' + countEvent;
-
-                ui.item.addClass(classBootstrap);
-            }
+            var summ = event.clientX-startX;
+            var prev= ui.item.prev().data('depth');
+            division = Math.round(prev+1);
+            //var dataDepth=ui.item.data('depth');
         },
         stop:function(event,ui){
-            if((event.clientX-startX)>=deth){
-                countEvent++;
-
-            }else{
-                countEvent--;
-
-            }
             startX=event.clientX;
+            if(ui.item.index()!=0) {
+                classBootstrap = 'col-md-offset-' + division;
+                ui.item.addClass(classBootstrap);
+                var dataDepth=ui.item.data('depth');
+                ui.item.attr('data-depth',(dataDepth+division));
+            }
         }
+    });
+    $(".sortable-ui").on('click','.wells .del',function(){
+        $(this).parent('.wells').remove()
     });
 });
 

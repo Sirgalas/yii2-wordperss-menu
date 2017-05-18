@@ -22,7 +22,7 @@ class MenuGet extends Menu
                             var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var alias = print.args.data.id;
-                            var input = '<li class=\"ui-state-default wells\"  data-alias=\"'+alias+'\" data-title=\"'+text+'\">'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
+                            var input = '<li class=\"ui-state-default wells\"  data-alias=\"'+alias+'\" data-title=\"'+text+'\" data-depth=\"0\">'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
                             sortable.innerHTML=value +''+ input;
                         }",
                         "select2:select" => "function(e) { 
