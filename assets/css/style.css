@@ -39,6 +39,9 @@
     padding: 10px 50px;
     font-size: 15px;
     width: 50%;
+    border:1px solid #ccc;
+    border-radius:4px;
+    background:#D9EDF7
 }
 .sortable-ui li span{
     float: right;
