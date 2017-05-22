@@ -6,14 +6,16 @@ class m170503_100303_menu_setup extends Migration
 {
     public function up()
     {
-
+        $this->createTable('{{%menu_table}}',[
+            'id'=>$this->primaryKey(),
+            'name'=>$this->string()->notNull()->unique(),
+            'content'=>$this->text()->notNull()
+        ]) ;
     }
 
     public function down()
     {
-        echo "m170503_100303_menu_setup cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('menu_table');
     }
 
     /*
