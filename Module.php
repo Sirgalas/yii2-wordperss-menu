@@ -12,6 +12,7 @@ class Module extends \yii\base\Module
     /**
      * @var
      */
+    public $modelDb;
     public $model;
     public $models;
     public $label;
@@ -19,6 +20,12 @@ class Module extends \yii\base\Module
     /**
      * @inheritdoc
      */
+    public static function t($message, $params = [], $language = null)
+    {
+        return Yii::t('sirgalas/menu/translit', $message, $params, $language);
+    }
+    
+    
     public function getAllModels(){
         if(isset($this->model)) {
             if(isset($models['label'])){
