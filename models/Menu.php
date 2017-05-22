@@ -11,17 +11,17 @@ class Menu extends ActiveRecord
 
     public static function tableName()
     {
-        $module=self::module;
+        $module = \Yii::$app->controller->module;
         if(empty($module->modelDb)){
             return '{{%menu_table}}';
         }else{
-            return $module->dbName->name;
+            return $module->modelDb['dbName'];
         }
     }
 
     public function rules()
     {
-        $module=self::module;
+        $module = \Yii::$app->controller->module;
         if(empty($module->modelDb)) {
             return [
                 [['name', 'content'], 'required'],
@@ -31,16 +31,16 @@ class Menu extends ActiveRecord
             ];
         }else{
             return [
-                [[$module->dbName->name, $module->content], 'required'],
-                [[$module->dbName->content], 'string'],
-                [[$module->dbName->name,$module->serviceField], 'string', 'max' => 510],
-                [[$module->dbName->name], 'unique'],
+                [[$module->modelDb["name"], $module->modelDb["content"]], 'required'],
+                [[$module->modelDb["content"]], 'string'],
+                [[$module->modelDb["name"],$module->modelDb["serviceField"]], 'string', 'max' => 510],
+                [[$module->modelDb["name"]], 'unique'],
             ];
         }
     }
     public function attributeLabels()
     {
-        $module=self::module;
+        $module = \Yii::$app->controller->module;
         $returnArray=array([
             'id' => 'id',
             'name' => Module::t('Name'),

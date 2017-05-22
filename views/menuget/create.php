@@ -11,7 +11,7 @@ use yii\web\View;
         </div>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
             <ul id="menu-to-edit" class="sortable-ui">
-               
+               <?php var_dump($module->modelDb); ?>
             </ul>
             <a href="#" id="secure" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
         </div>

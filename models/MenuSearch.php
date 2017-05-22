@@ -14,16 +14,17 @@ use yii\data\ActiveDataProvider;
 
 class MenuSearch extends Menu
 {
+    public $name;
     public function rules()
     {
-        $module=$this->module;
+        $module=\Yii::$app->controller->module;
         if(empty($module->modelDb)){
             return [
                 [['name'], 'safe'],
             ];
         }else{
             return[
-                [[$module->modelDb->name],'safe'],
+                [[$module->modelDb["name"]],'safe'],
             ];
         }
     }
@@ -66,11 +67,11 @@ class MenuSearch extends Menu
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
-        $module=$this->module;
+        $module=\Yii::$app->controller->module;
         if(empty($module->modelDb)) {
             $query->andFilterWhere(['like', 'name', $this->name]);
         }else{
-            $query->andFilterWhere(['like', $module->modelDb->name, $this->name]);
+            $query->andFilterWhere(['like', $module->modelDb["name"], $this->name]);
         }
         return $dataProvider;
     }
