@@ -21,7 +21,7 @@ class Menu extends ActiveRecord
 
     public function rules()
     {
-        $module=self::modules;
+        $module=self::module;
         if(empty($module->modelDb)) {
             return [
                 [['name', 'content'], 'required'],
@@ -40,7 +40,7 @@ class Menu extends ActiveRecord
     }
     public function attributeLabels()
     {
-        $module=self::modules;
+        $module=self::module;
         $returnArray=array([
             'id' => 'id',
             'name' => Module::t('Name'),
