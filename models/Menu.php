@@ -11,11 +11,11 @@ class Menu extends ActiveRecord
 
     public static function tableName()
     {
-        $module=self::modules;
+        $module=self::module;
         if(empty($module->modelDb)){
             return '{{%menu_table}}';
         }else{
-            return $module->dbName;
+            return $module->dbName->name;
         }
     }
 
@@ -31,10 +31,10 @@ class Menu extends ActiveRecord
             ];
         }else{
             return [
-                [[$module->name, $module->content], 'required'],
-                [[$module->content], 'string'],
-                [[$module->name,$module->serviceField], 'string', 'max' => 510],
-                [[$module->name], 'unique'],
+                [[$module->dbName->name, $module->content], 'required'],
+                [[$module->dbName->content], 'string'],
+                [[$module->dbName->name,$module->serviceField], 'string', 'max' => 510],
+                [[$module->dbName->name], 'unique'],
             ];
         }
     }
