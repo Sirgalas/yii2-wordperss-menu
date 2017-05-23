@@ -22,7 +22,7 @@ class MenugetController extends Controller
         ]);
     }
 
-       public function actionCrete(){
+       public function actionCreate(){
            $module=$this->module;
            $model= new MenuGet();
            return $this->render('create',[

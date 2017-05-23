@@ -47,27 +47,22 @@ class MenuSearch extends Menu
      */
     public function search($params)
     {
-        $query = Menu::find()->where(["key_setup"=>"lines"]);
-
-        // add conditions that should always apply here
-
+        $module=\Yii::$app->controller->module;
+        if(empty($module->modelDb)) {
+            $query = Menu::find()->where([$module->modelDb["serviceField"] => $module->modelDb["nameServiceField"]]);
+        }else{
+            $query = Menu::find();
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
-
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
+       $query->andFilterWhere([
             'id' => $this->id,
         ]);
-        $module=\Yii::$app->controller->module;
         if(empty($module->modelDb)) {
             $query->andFilterWhere(['like', 'name', $this->name]);
         }else{
