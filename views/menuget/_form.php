@@ -6,21 +6,58 @@ use yii\helpers\ArrayHelper;
 use sirgalas\menu\models\MenuGet;
 use yii\web\View;
 use sirgalas\menu\MenuAsset;
+use kartik\select2\Select2;
 MenuAsset::register($this);
 ?>
     <?php 
-        $form = ActiveForm::begin(); 
+        $form = ActiveForm::begin();
             $menu=new MenuGet();
-            $select=$menu->addSelect($allModels);
-           if(is_array($select)){
-                foreach ($select as $sel){
-                    echo '<div class="form-group field-menu">';
-                    echo $sel;
+                foreach ($module->models as $modul){
+                    if(isset($modul['label'])){
+                        $label=$modul['label'];
+                    }else{
+                        $label=$modul['class'];
+                    } ?>
+                    <div class="form-group field-menu" >
+                        <?= Html::hiddenInput('path',$modul['path'],['id'=>'paht_'.$modul['alias']]); ?>
+                    </div>
+                    <div class="form-group field-menu" >
+                        <?= Html::hiddenInput('class',$modul['class'],['id'=>'class_'.$modul['alias']]); ?>
+                    </div>
+                    <div class="form-group field-menu" >
+                        <?= Html::hiddenInput('alias',$modul['alias'],['id'=>'alias_'.$modul['alias']]); ?>
+                    </div>
+                    <?php echo '<div class="form-group field-menu">';
+                    //var class= alias.parentNode.previousElementSibling.childNodes[0];
+                        $selectArr=$model->addSelect($modul);
+                      echo Select2::widget([
+                         'name' => 'state_2',
+                         'value' => '',
+                         'data' => $selectArr,
+                         'options' => ['placeholder' => $label],
+                         'pluginEvents' => [
+                             "select2:selecting" => "function(e) {
+                            var print = log(e);
+                            var alias=e.target.parentNode.previousElementSibling.childNodes[1];
+                            console.log(alias.value);
+                            var model= alias.parentNode.previousElementSibling.childNodes[1];
+                            var path = model.parentNode.previousElementSibling.childNodes[1];
+                            var sortable = document.getElementById('menu-to-edit');
+                            var value = sortable.innerHTML
+                            var text = print.args.data.text;
+                            var id = print.args.data.id;
+                             var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
+                            sortable.innerHTML=value +''+ input;
+                        }",
+                             "select2:select" => "function(e) {
+
+                         }"
+                         ]
+                     ]); 
+
                     echo '</div>';
                 }
-            }else{
-                echo $select;
-            }
+
         ActiveForm::end();
     ?>
 
