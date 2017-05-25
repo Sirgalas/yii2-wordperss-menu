@@ -18,16 +18,14 @@ jQuery(document).ready(function(){
 
         },
         beforeStop: function(event, ui){
-            console.log(ui.offset);
             devision = Math.round((ui.offset.left - offsets.left) / depth);
         },
         stop: function (event, ui) {
             var classDeptch = 1;
             startX = event.clientX;
-            prev = ui.item.prev().attr('data-depth')//.context.attributes[3].nodeValue;
+            prev = ui.item.prev().attr('data-depth')
             maxDeptch = parseInt(prev) + 1;
             if (devision >= maxDeptch) {
-                alert(maxDeptch);
                 classDeptch = maxDeptch;
             } else {
                 classDeptch = devision;
@@ -46,17 +44,21 @@ jQuery(document).ready(function(){
     $("#secure").click(function (e) {
         e.preventDefault();
         var menu={};
-        $( "#sortable li" ).each(function (i) {
+        $( "#menu-to-edit li" ).each(function (i) {
             var id = $(this).data('id');
-            var cat = $(this).data('cat');
+            var model = $(this).data('model');
+            var alias = $(this).data('alias');
+            var depth = $(this).attr('data-depth');
+            var path = $(this).data('path');
             var title=$(this).data('title');
             var key = 'menu' + i;
-            var addmenu = {title: title, id: id, cat: cat };
+            var addmenu = {title: title, id: id, model: model,alias:alias,depth:depth,path:path };
             menu[key] = addmenu;
         });
         //console.log(JSON.stringify(menu));
         var newval = JSON.stringify(menu);
-        $('#frontendsetup-vaelye').val(''+newval);
+        console.log(newval);
+        //$('#frontendsetup-vaelye').val(''+newval);
     });
 });
 

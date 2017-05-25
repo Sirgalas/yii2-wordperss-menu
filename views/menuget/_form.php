@@ -39,14 +39,13 @@ MenuAsset::register($this);
                              "select2:selecting" => "function(e) {
                             var print = log(e);
                             var alias=e.target.parentNode.previousElementSibling.childNodes[1];
-                            console.log(alias.value);
                             var model= alias.parentNode.previousElementSibling.childNodes[1];
                             var path = model.parentNode.previousElementSibling.childNodes[1];
                             var sortable = document.getElementById('menu-to-edit');
                             var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var id = print.args.data.id;
-                             var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
+                             var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-depth-item=\"0\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
                             sortable.innerHTML=value +''+ input;
                         }",
                              "select2:select" => "function(e) {
