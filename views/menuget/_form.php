@@ -45,8 +45,9 @@ MenuAsset::register($this);
                             var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var id = print.args.data.id;
-                             var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-depth-item=\"0\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
+                            var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span></li>';
                             sortable.innerHTML=value +''+ input;
+                            count++;
                         }",
                              "select2:select" => "function(e) {
 

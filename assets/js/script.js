@@ -1,26 +1,29 @@
 jQuery(document).ready(function(){
     var startX=0;
-    var count=1;
     var depth=50;
-    var division=0;
     var maxDeptch;
     var classBootstrap;
     var prev;
     var offsets=$('#menu-to-edit').offset();
     $(".sortable-ui").sortable({
         grid:[50,50],
+        create:function(event,ui){
+
+        },
         start: function (event, ui) {
             startX = event.clientX;
             ui.item.removeClass(classBootstrap);
-            // console.log(ui.item.offset());
         },
         activate: function (event, ui) {
 
         },
         beforeStop: function(event, ui){
             devision = Math.round((ui.offset.left - offsets.left) / depth);
+
         },
         stop: function (event, ui) {
+            id=ui.item.prev().index();
+            ui.item.prev().attr('data-id',id);
             var classDeptch = 1;
             startX = event.clientX;
             prev = ui.item.prev().attr('data-depth')
@@ -29,6 +32,23 @@ jQuery(document).ready(function(){
                 classDeptch = maxDeptch;
             } else {
                 classDeptch = devision;
+            }
+            if(classDeptch>0){
+                var siblingItemDepht = Number(classDeptch)-Number(1);
+                var parent = ui.item.prevAll('[data-depth=' + siblingItemDepht + ']').first();
+                var index= parent.index();
+                var sibling=ui.item.siblings();
+                for(var i = 0;i<sibling.length;i++){
+                    var oldParent=ui.item.siblings('[data-item='+index+']');
+                    oldParent.attr('data-item',oldParent.index());
+                    index=oldParent.index();
+                }
+                parent.attr('data-item',parent.index());
+                ui.item.attr('data-parent',parent.index());
+                ui.item.attr('data-item',ui.item.index());
+
+            }else{
+                ui.item.removeAttr('data-parent');
             }
             if (ui.item.index() != 0) {
                 classBootstrap = 'col-md-offset-' + classDeptch;
@@ -48,20 +68,38 @@ jQuery(document).ready(function(){
             var id = $(this).data('id');
             var model = $(this).data('model');
             var alias = $(this).data('alias');
-            var depth = $(this).attr('data-depth');
+            var depth = parseInt($(this).attr('data-depth'));
             var path = $(this).data('path');
-            var title=$(this).data('title');
-            var key = 'menu' + i;
-            var addmenu = {title: title, id: id, model: model,alias:alias,depth:depth,path:path };
-            menu[key] = addmenu;
+            var title = $(this).data('title').toString();
+            var key = 'menu' + $(this).attr('data-item');
+            var addmenu = {title: title, id: id, model: model,alias:alias,depth:depth,path:path};
+            if($(this).attr('data-parent')) {
+                var parentKey = 'menu' + $(this).data('parent');
+                var parent = menu[parentKey];
+                if (parent) {
+                    for (var j = depth; j > 1 && parent; j--) {
+                        parent = parent.depthMenu;
+                    }
+                    if (parent){
+                        if (typeof parent.depthMenu == "undefined") {
+                            parent.depthMenu = {};
+                        }
+                        parent.depthMenu[key] = addmenu;
+                    }
+                }else{
+                    menu[key] = addmenu;
+                }
+            }else {
+                menu[key] = addmenu;
+            }
         });
-        //console.log(JSON.stringify(menu));
+        console.log(JSON.stringify(menu, "", 4));
         var newval = JSON.stringify(menu);
-        console.log(newval);
-        //$('#frontendsetup-vaelye').val(''+newval);
+        //console.log(newval);
+
     });
 });
-
+var count=0;
 function log (evt) {
     if (!evt) {
         var args = '{}';
