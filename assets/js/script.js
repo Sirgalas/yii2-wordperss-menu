@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
             ui.item.prev().attr('data-id',id);
             var classDeptch = 1;
             startX = event.clientX;
-            prev = ui.item.prev().attr('data-depth')
+            prev = ui.item.prev().attr('data-depth');
             maxDeptch = parseInt(prev) + 1;
             if (devision >= maxDeptch) {
                 classDeptch = maxDeptch;
@@ -116,6 +116,11 @@ jQuery(document).ready(function(){
             $(this).addClass('glyphicon-chevron-down');
             $(this).removeClass('glyphicon-chevron-up');
         }
+    });
+    $(".sortable-ui").on('click','.wells .showDropFile',function(e){
+        e.preventDefault();
+        var id=$(this).parents('.wells').data('item');
+        console.log(id);
     });
 });
 

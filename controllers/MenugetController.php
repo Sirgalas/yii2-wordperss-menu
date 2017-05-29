@@ -4,6 +4,7 @@ namespace sirgalas\menu\controllers;
 
 
 use sirgalas\menu\models\MenuSearch;
+use sirgalas\menu\models\UploadImage;
 use yii\web\Controller;
 use sirgalas\menu\models\MenuGet;
 use yii\web\NotFoundHttpException;
@@ -25,10 +26,12 @@ class MenugetController extends Controller
        public function actionCreate(){
            $module=$this->module;
            $model= new MenuGet();
+           $uploadModel=new UploadImage();
            return $this->render('create',[
                /*'allModels'  =>  $module->getAllModels(),*/
                'model'      =>  $model,
-               'module'     =>  $module
+               'module'     =>  $module,
+               'uploadModel' =>  $uploadModel
            ]);
            
        }

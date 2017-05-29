@@ -63,3 +63,12 @@
     margin-right: 10px;
     cursor: pointer;
 }
+body .dropzone .dz-default.dz-message{
+    height: 78px;
+    margin-left: -132px;
+    width: 274px;
+    background-size: 100% ;
+}
+body .dropFileHide{
+    display: none;
+}
