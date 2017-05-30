@@ -120,7 +120,7 @@ jQuery(document).ready(function(){
     $(".sortable-ui").on('click','.wells .showDropFile',function(e){
         e.preventDefault();
         var id=$(this).parents('.wells').data('item');
-        console.log(id);
+        $('#dropzone').toggleClass('dropFileHide');
     });
 });
 
