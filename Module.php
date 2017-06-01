@@ -16,16 +16,34 @@ class Module extends \yii\base\Module
     //public $model;
     public $models;
     public $label;
+    
     public $controllerNamespace = 'sirgalas\menu\controllers';
     /**
      * @inheritdoc
      */
-    public static function t($message, $params = [], $language = null)
+    public function init()
     {
-        return Yii::t('sirgalas/menu/translit', $message, $params, $language);
+        parent::init();
+        $this->registerTranslations();
     }
-    
-    
+
+
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['sirgalas/menu/translit'] = [
+            'class'          => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath'       => '@vendor/sirgalas/yii2-wordperss-menu/messages',
+        ];
+    }
+
+    public static function t($category, $message, $params = [], $language = null)
+    {
+        return Yii::t('sirgalas/menu/'.$category, $message, $params, $language);
+    }
+
+
+
     public function getAllModels(){
         if(isset($this->model)) {
             if(isset($model['label'])){
@@ -48,13 +66,7 @@ class Module extends \yii\base\Module
         }
         return $model;
     }
-
-    public function init()
-    {
-        parent::init();
-
-        // custom initialization code goes here
-    }
+    
 
     /**
      * @inheritdoc

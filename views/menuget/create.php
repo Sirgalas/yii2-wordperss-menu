@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\web\View;
+use sirgalas\menu\Module;
 ?>
 <div class="menu-create patern">
 
@@ -8,8 +9,18 @@ use yii\web\View;
     <div class="frontend-setup-form col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
             <?= $this->render('_form', [ 'model'=>$model,'module'=>$module]) ?>
-            <div class="dropFileHide" id="dropzone">
-                <?= $this->render('_dropfile',['model'=>$model,'module'=>$module,'uploadModel'=>$uploadModel]); ?>
+            <?php
+            $found = null;
+            foreach($module->models as $key => $value) {}
+            ?>
+            <div class="dropFileHide">
+                <div id="dropzoneFull" >
+                    <?= $this->render('_dropfile',['model'=>$model,'module'=>$module,'uploadModel'=>$uploadModel]); ?>
+                </div>
+                <div id="dropzoneEmpty">
+                    <?= Module::t('translit','ErrorNotPath'); ?>
+                </div>
+                
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">

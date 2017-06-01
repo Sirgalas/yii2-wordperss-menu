@@ -7,16 +7,15 @@ use sirgalas\menu\Module;
 /* @var $searchModel backend\models\FrontendSetupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Module::t('Menu setup');
+$this->title = Module::t('translit','Menu setup');
 $this->params['breadcrumbs'][] = $this->title;
  ?>
 <div class="frontend-setup-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('backend','Create menu'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('translit','Create menu'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php
    

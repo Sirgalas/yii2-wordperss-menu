@@ -43,11 +43,11 @@ class Menu extends ActiveRecord
         $module = \Yii::$app->controller->module;
         $returnArray=array([
             'id' => 'id',
-            'name' => Module::t('Name'),
-            'content'    => Module::t('Content'),
+            'name' => Module::t('translit','Name'),
+            'content'    => Module::t('translit','Content'),
         ]);
         if(!empty($module->modelDb)){
-            $returnArray['serviceField']=Module::t('Service-Feild');
+            $returnArray['serviceField']=Module::t('translit','Service-Feild');
         }
         return $returnArray;
     }
