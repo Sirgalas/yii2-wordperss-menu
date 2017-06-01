@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
             ui.item.prev().attr('data-id',id);
             var classDeptch = 1;
             startX = event.clientX;
-            prev = ui.item.prev().attr('data-depth');
+            prev = ui.item.prev().attr('data-depth')
             maxDeptch = parseInt(prev) + 1;
             if (devision >= maxDeptch) {
                 classDeptch = maxDeptch;
@@ -72,10 +72,11 @@ jQuery(document).ready(function(){
             var alias = $(this).data('alias');
             var depth = parseInt($(this).attr('data-depth'));
             var path = $(this).data('path');
+            var title='';
             if($(this).find('input').val().length==0) {
-                var title = $(this).data('title').toString();
+                title = $(this).data('title').toString();
             }else{
-                var title =$(this).find('input').val();
+                title =$(this).find('input').val();
             }
             var key = 'menu' + $(this).attr('data-item');
             var addmenu = {title: title, id: id, model: model,alias:alias,depth:depth,path:path};
@@ -119,8 +120,31 @@ jQuery(document).ready(function(){
     });
     $(".sortable-ui").on('click','.wells .showDropFile',function(e){
         e.preventDefault();
-        var id=$(this).parents('.wells').data('item');
-        $('#dropzone').toggleClass('dropFileHide');
+        $('.dropFileHide>div').hide();
+
+        var url = $(this).data('url');
+        // console.log($(this).parents('li.wells').attr('data-id'));
+        $.post(
+            url,
+            {
+                id: $(this).parents('li.wells').attr('data-id'),
+                className:$(this).parents('li.wells').attr('data-model'),
+            },
+            onAjaxSuccess
+        );
+        function onAjaxSuccess(data)
+        {
+            console.log(data);
+            if(data=='yes'){
+                $('#dropzoneFull').show();
+            }
+            if(data=='no'){
+                alert(data);
+                $('#dropzoneEmpty').show();
+            }
+
+
+        }
     });
 });
 

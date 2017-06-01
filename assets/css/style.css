@@ -58,17 +58,19 @@
     list-style: outside none none;
     padding: 10px 50px;
 }
-
 .showInput{
     margin-right: 10px;
     cursor: pointer;
 }
+
 body .dropzone .dz-default.dz-message{
     height: 78px;
     margin-left: -132px;
     width: 274px;
     background-size: 100% ;
 }
-body .dropFileHide{
+
+body .dropFileHide>div{
     display: none;
 }
+
