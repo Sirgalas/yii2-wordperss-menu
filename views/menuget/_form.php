@@ -8,6 +8,7 @@ use yii\web\View;
 use sirgalas\menu\MenuAsset;
 use kartik\select2\Select2;
 use yii\helpers\Url;
+use sirgalas\menu\Module;
 MenuAsset::register($this);
 ?>
     <?php 
@@ -38,27 +39,36 @@ MenuAsset::register($this);
                          'options' => ['placeholder' => $label],
                          'pluginEvents' => [
                              "select2:selecting" => "function(e) {
-                            var print = log(e);
-                            var alias=e.target.parentNode.previousElementSibling.childNodes[1];
-                            var model= alias.parentNode.previousElementSibling.childNodes[1];
-                            var path = model.parentNode.previousElementSibling.childNodes[1];
-                            var sortable = document.getElementById('menu-to-edit');
-                            var value = sortable.innerHTML
-                            var text = print.args.data.text;
-                            var id = print.args.data.id;
-                            var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title <input type=\"text\" class=\"form-control\" placeholder=\"Enter title\" /></label><br/>".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
-                            $('.dropFileHide').hide();
-                            sortable.innerHTML=value +''+ input;
-                            count++;
-                        }",
-                             "select2:select" => "function(e) {
-
-                         }"
+                                var print = log(e);
+                                var alias=e.target.parentNode.previousElementSibling.childNodes[1];
+                                var model= alias.parentNode.previousElementSibling.childNodes[1];
+                                var path = model.parentNode.previousElementSibling.childNodes[1];
+                                var sortable = document.getElementById('menu-to-edit');
+                                var value = sortable.innerHTML
+                                var text = print.args.data.text;
+                                var id = print.args.data.id;
+                                var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title <input type=\"text\" class=\"form-control\" placeholder=\"Enter title\" /></label><br/>".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
+                                $('.dropFileHide').hide();
+                                sortable.innerHTML=value +''+ input;
+                                count++; }"
                          ]
                      ]); 
 
                     echo '</div>';
                 }
+            $selectMenu=$model->addSelectMenu($module);
+            echo Select2::widget([
+                'name' => 'state_2',
+                'value' => '',
+                'data' => $selectMenu,
+                'options' => ['placeholder' => Module::t('translit','menuSelect')],
+                'pluginEvents' => [
+                "select2:selecting" => "function(e) {
+                     var print = log(e);
+                     var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title <input type=\"text\" class=\"form-control\" placeholder=\"Enter title\" /></label><br/>".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
+                    }"
+                ]
+            ]);
 
         ActiveForm::end();
     ?>
