@@ -32,48 +32,55 @@ class MenugetController extends Controller
            if (Yii::$app->request->isAjax) {
                $transliterator=new Translit();
                $imagine= new Imagerisize();
-               $basePath='/'.date('Y').'/'.date('m').'/';
+               $basePath=date('Y').'/'.date('m');
                $fileName = 'file';
-               $uploadPath =''.$basePath;
-               if (isset($_FILES[$fileName])) {
-                   if (file_exists($uploadPath)) {
-                   } else {
-                       //mkdir($uploadPath, 0775, true);
-                   }
-                   $file = \yii\web\UploadedFile::getInstanceByName($fileName);
-                   $filenames=$transliterator->traranslitImg($file);
-                   if ($file->saveAs($uploadPath . '/' . $filenames)) {
-                       $imagine->imagerisizegods($uploadPath,$filenames,$file);
-                       return $this->render('create', [
-                           'model'      =>  $model,
-                           'module'     =>  $module,
-                           'uploadModel' =>  $uploadModel
-                       ]);
+               $uploadPath =$module->imageDownloadPath.''.$basePath;
+               $request=Yii::$app->request;
+               if($request->isPost){
+                   if (isset($_FILES[$fileName])) {
+                       if (file_exists($uploadPath)) {
+
+                       } else {
+
+                           if (mkdir($uploadPath, 0777, true)) {}else{
+                               $error = error_get_last();
+                               return var_dump($error['message']);
+                           }
+                       }
+                       $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+                       $filenames = $transliterator->traranslitImg($file);
+                       if ($file->saveAs($uploadPath . '/' . $filenames)) {
+                           $imagine->imagerisize($uploadPath, $filenames,$module);
+                           return $this->render('create', [
+                               'model' => $model,
+                               'module' => $module,
+                               'uploadModel' => $uploadModel
+                           ]);
+                       }
                    }
                }else{
-                   $post=Yii::$app->request->post();
-                   $found=null;
+                   $get=Yii::$app->request->get();
                    foreach ($module->models as $value){
-                        if($value['class']===$post['className']){
+                        if($value['class']===$get['className']){
                             $found =$value;
                             break;
                         }
                    }
-                  
-                   if(isset($found['imagePath'])&&isset($found['imageResize'])){
-                       return 'yes';
-                   }else{
-                       return 'no';
-                   }
-                   
+                   return $this->renderAjax('_dropfile', [
+                       'model'  => $model,
+                       'module' => $module,
+                       'found'  =>$found,
+                       'id'     =>  $get['id'],
+                       'uploadModel' => $uploadModel
+                   ]);
                }
            }
            return $this->render('create',[
                /*'allModels'  =>  $module->getAllModels(),*/
                'model'      =>  $model,
                'module'     =>  $module,
+               'found'      =>  null,
                'uploadModel' =>  $uploadModel
            ]);
-           
        }
 }

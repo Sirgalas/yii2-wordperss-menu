@@ -16,6 +16,9 @@ class Module extends \yii\base\Module
     //public $model;
     public $models;
     public $label;
+    public $imageDownloadPath;
+    public $imageSetPath;
+    public $imageResize;
     
     public $controllerNamespace = 'sirgalas\menu\controllers';
     /**

@@ -9,6 +9,7 @@ use sirgalas\menu\Module;
 class Menu extends ActiveRecord
 {
 
+    public $imageFile;
     public static function tableName()
     {
         $module = \Yii::$app->controller->module;
@@ -28,6 +29,7 @@ class Menu extends ActiveRecord
                 [['content'], 'string'],
                 [['name'], 'string', 'max' => 510],
                 [['name'], 'unique'],
+                [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             ];
         }else{
             return [
@@ -35,6 +37,7 @@ class Menu extends ActiveRecord
                 [[$module->modelDb["content"]], 'string'],
                 [[$module->modelDb["name"],$module->modelDb["serviceField"]], 'string', 'max' => 510],
                 [[$module->modelDb["name"]], 'unique'],
+                [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             ];
         }
     }

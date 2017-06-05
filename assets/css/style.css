@@ -53,6 +53,10 @@
     cursor: pointer;
 }
 
+.sortable-ui li img{
+    width: 40px;
+}
+
 .sortable-ui li {
     font-size: 15px;
     list-style: outside none none;
@@ -70,7 +74,7 @@ body .dropzone .dz-default.dz-message{
     background-size: 100% ;
 }
 
-body .dropFileHide>div{
+body .dropFileHide{
     display: none;
 }
 

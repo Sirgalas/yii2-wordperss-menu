@@ -46,7 +46,8 @@ MenuAsset::register($this);
                             var value = sortable.innerHTML
                             var text = print.args.data.text;
                             var id = print.args.data.id;
-                            var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title <input type=\"text\" class=\"form-control\" placeholder=\"Enter title\" /></label><br/>".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
+                            var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title <input type=\"text\" class=\"form-control\" placeholder=\"Enter title\" /></label><br/>".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
+                            $('.dropFileHide').hide();
                             sortable.innerHTML=value +''+ input;
                             count++;
                         }",

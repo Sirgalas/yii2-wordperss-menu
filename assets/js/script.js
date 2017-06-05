@@ -120,31 +120,21 @@ jQuery(document).ready(function(){
     });
     $(".sortable-ui").on('click','.wells .showDropFile',function(e){
         e.preventDefault();
-        $('.dropFileHide>div').hide();
-
+        $("#dropFileHide").hide();
         var url = $(this).data('url');
-        // console.log($(this).parents('li.wells').attr('data-id'));
-        $.post(
-            url,
-            {
-                id: $(this).parents('li.wells').attr('data-id'),
-                className:$(this).parents('li.wells').attr('data-model'),
-            },
-            onAjaxSuccess
-        );
-        function onAjaxSuccess(data)
-        {
-            console.log(data);
-            if(data=='yes'){
-                $('#dropzoneFull').show();
+        var id = $(this).parents('li.wells').attr('data-item');
+        var className = $(this).parents('li.wells').attr('data-model');
+        $.ajax({
+            type: "GET",
+            url:url,
+            data:"id="+id+"&className="+className,
+            success: function(data){
+                $(".dropFileHide").html(data);
+                $(".dropFileHide").show();
+                //$("#menuget-imagefile").dropzone({url:url});
             }
-            if(data=='no'){
-                alert(data);
-                $('#dropzoneEmpty').show();
-            }
+        });
 
-
-        }
     });
 });
 
