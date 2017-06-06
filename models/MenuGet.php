@@ -12,8 +12,8 @@ class MenuGet extends Menu
     
     public function addSelectMenu($modules){
         if($modules->modelDb){
-            $nameModel=$modules->modelDb->nameModel;
-            return ArrayHelper::map($nameModel::find()->asArray()->all(),$modules->modelDb->id,$modules->modelDb->name);
+            $nameModel=$modules->modelDb['nameModel'];
+            return ArrayHelper::map($nameModel::find()->asArray()->all(),$modules->modelDb['id'],$modules->modelDb['name']);
         }else{
             return ArrayHelper::map(Menu::find()->asArray()->all(),'id','name');
         }

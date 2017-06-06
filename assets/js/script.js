@@ -67,21 +67,47 @@ jQuery(document).ready(function(){
         e.preventDefault();
         var menu={};
         $( "#menu-to-edit li" ).each(function (i) {
-            var id = $(this).data('id');
-            var model = $(this).data('model');
-            var alias = $(this).data('alias');
-            var depth = parseInt($(this).attr('data-depth'));
-            var path = $(this).data('path');
-            var title='';
-            if($(this).find('input').val().length==0) {
-                title = $(this).data('title').toString();
+            if($(this).data('menu')) {
+                var menuItem = $(this).data('menu');
+                var depth = parseInt($(this).attr('data-depth'));
+                var key = 'menu' + $(this).attr('data-item');
+                var addmenu = {menuItem:menuItem,depth:depth}
             }else{
-                title =$(this).find('input').val();
+                var id = $(this).data('id');
+                var model = $(this).data('model');
+                var alias = $(this).data('alias');
+                var depth = parseInt($(this).attr('data-depth'));
+                var path = $(this).data('path');
+                var title = '';
+                if($(this).find('img')){
+                    var img = $(this).find('img');
+                    var imgPath = img.attr('data-pathimage');
+                    var imgName = img.attr('data-filename');
+                }else{
+                    var imgPath = false;
+                    var imgName = false;
+                }
+                if ($(this).find('.tilteInput').val().length == 0) {
+                    title = $(this).data('title').toString();
+                } else {
+                    title = $(this).find('.tilteInput').val();
+                }
+                if ($(this).find('.classInput').val().length == 0) {
+                    classItem = false;
+                } else {
+                    classItem = $(this).find('.classInput').val();
+                }
+                if ($(this).find('.idInput').val().length == 0) {
+                    idInput = false;
+                } else {
+                    idInput = $(this).find('.idInput').val();
+                }
+                var key = 'menu' + $(this).attr('data-item');
+                var addmenu = {title: title, id: id, model: model, alias: alias, depth: depth, path: path,imgPath:imgPath,imgName:imgName};
             }
-            var key = 'menu' + $(this).attr('data-item');
-            var addmenu = {title: title, id: id, model: model,alias:alias,depth:depth,path:path};
             if($(this).attr('data-parent')) {
                 var parentKey = 'menu' + $(this).data('parent');
+
                 var parent = menu[parentKey];
                 if (parent) {
                     for (var j = depth; j > 1 && parent; j--) {

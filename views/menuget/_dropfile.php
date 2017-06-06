@@ -18,8 +18,7 @@ if(isset($found)){?>
                 var liHtml=li.html();
                 var src= path+'/'+file.name;
                 var image = '<image src=\"'+src+'\" data-pathImage=\"'+path+'\" data-fileName=\"'+file.name+'\" />';
-                var addHtml = image+liHtml
-                console.log(addHtml);
+                var addHtml = image+liHtml;
                 li.html(addHtml);
                 
             }",
