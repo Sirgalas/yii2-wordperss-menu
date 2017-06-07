@@ -16,10 +16,24 @@ use sirgalas\menu\Module;
                                 
             </div>
         </div>
+        <?php
+        if(isset($module->extra_menu)){ ?>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-            <ul id="menu-to-edit" class="sortable-ui">
+            <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menu">
+                
             </ul>
-            <a href="#" id="secure" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
+
+             <?php
+                for($i=$module->extra_menu;$i>0;$i--){
+                    echo "<ul class=\"sortable-ui extra connectedSortables \" data-class=\"extra-".$i."\"></ul>";
+                }
+
+             }else{ ?>
+                 <ul id="menu-to-edit" class="sortable-ui col-lg-12 col-md-12 col-sm-12 col-xs-12"  data-class="menu">
+
+                 </ul>
+             <?php } ?>
+            <a href="#" id="secures" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?php /*= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])*/ ?>

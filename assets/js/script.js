@@ -7,15 +7,11 @@ jQuery(document).ready(function(){
     var offsets=$('#menu-to-edit').offset();
     $(".sortable-ui").sortable({
         grid:[50,50],
-        create:function(event,ui){
-
-        },
+        //items:"li:not(.ui-state-disabled)",
+        connectWith:".connectedSortables",
         start: function (event, ui) {
             startX = event.clientX;
             ui.item.removeClass(classBootstrap);
-        },
-        activate: function (event, ui) {
-
         },
         beforeStop: function(event, ui){
             devision = Math.round((ui.offset.left - offsets.left) / depth);
@@ -28,6 +24,7 @@ jQuery(document).ready(function(){
             startX = event.clientX;
             prev = ui.item.prev().attr('data-depth')
             maxDeptch = parseInt(prev) + 1;
+            var extId=ui.item.parents('ul').attr('data-class');
             if (devision >= maxDeptch) {
                 classDeptch = maxDeptch;
             } else {
@@ -46,7 +43,6 @@ jQuery(document).ready(function(){
                 parent.attr('data-item',parent.index());
                 ui.item.attr('data-parent',parent.index());
                 ui.item.attr('data-item',ui.item.index());
-
             }else{
                 ui.item.removeAttr('data-parent');
             }
@@ -56,34 +52,42 @@ jQuery(document).ready(function(){
                 var dataDepth = ui.item.data('depth');
                 ui.item.attr('data-depth', (classDeptch));
             }
+            var fullId=extId+'-'+ ui.item.attr('data-item');
+            ui.item.attr('id',fullId);
         }
-    });
-
+    }).disableSelection();
+    /*$(".droppable").droppable({
+     drop:function(event, ui){
+     alert('yes');
+     console.log(event);
+     }
+     });*/
     $(".sortable-ui").on('click','.wells .del',function(){
         $(this).parent('.wells').remove()
     });
 
-    $("#secure").click(function (e) {
+    $("#secures").click(function (e) {
         e.preventDefault();
-        var menu={};
-        $( "#menu-to-edit li" ).each(function (i) {
-            if($(this).data('menu')) {
+        var menu = {};
+        var extra = {};
+        $("#menu-to-edit li").each(function (i) {
+            if ($(this).data('menu')) {
                 var menuItem = $(this).data('menu');
                 var depth = parseInt($(this).attr('data-depth'));
                 var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {menuItem:menuItem,depth:depth}
-            }else{
+                var addmenu = {menuItem: menuItem, depth: depth}
+            } else {
                 var id = $(this).data('id');
                 var model = $(this).data('model');
                 var alias = $(this).data('alias');
                 var depth = parseInt($(this).attr('data-depth'));
                 var path = $(this).data('path');
                 var title = '';
-                if($(this).find('img')){
+                if ($(this).find('img')) {
                     var img = $(this).find('img');
                     var imgPath = img.attr('data-pathimage');
                     var imgName = img.attr('data-filename');
-                }else{
+                } else {
                     var imgPath = false;
                     var imgName = false;
                 }
@@ -103,9 +107,18 @@ jQuery(document).ready(function(){
                     idInput = $(this).find('.idInput').val();
                 }
                 var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {title: title, id: id, model: model, alias: alias, depth: depth, path: path,imgPath:imgPath,imgName:imgName};
+                var addmenu = {
+                    title: title,
+                    id: id,
+                    model: model,
+                    alias: alias,
+                    depth: depth,
+                    path: path,
+                    imgPath: imgPath,
+                    imgName: imgName
+                };
             }
-            if($(this).attr('data-parent')) {
+            if ($(this).attr('data-parent')) {
                 var parentKey = 'menu' + $(this).data('parent');
 
                 var parent = menu[parentKey];
@@ -113,20 +126,96 @@ jQuery(document).ready(function(){
                     for (var j = depth; j > 1 && parent; j--) {
                         parent = parent.depthMenu;
                     }
-                    if (parent){
+                    if (parent) {
                         if (typeof parent.depthMenu == "undefined") {
                             parent.depthMenu = {};
                         }
                         parent.depthMenu[key] = addmenu;
                     }
-                }else{
+                } else {
                     menu[key] = addmenu;
                 }
-            }else {
+            } else {
                 menu[key] = addmenu;
             }
         });
-        console.log(JSON.stringify(menu, "", 4));
+        var countDraggable = 0;
+        $('.extra').each(function () {
+
+            var keyExtra = 'extra' + countDraggable;
+            $(this).find("li").each(function (i) {
+
+                if ($(this).data('menu')) {
+                    var menuItem = $(this).data('menu');
+                    var depth = parseInt($(this).attr('data-depth'));
+                    var key = 'menu' + $(this).attr('data-item');
+                    var addmenu = {menuItem: menuItem, depth: depth}
+                } else {
+                    var id = $(this).data('id');
+                    var model = $(this).data('model');
+                    var alias = $(this).data('alias');
+                    var depth = parseInt($(this).attr('data-depth'));
+                    var path = $(this).data('path');
+                    var title = '';
+                    if ($(this).find('img')) {
+                        var img = $(this).find('img');
+                        var imgPath = img.attr('data-pathimage');
+                        var imgName = img.attr('data-filename');
+                    } else {
+                        var imgPath = false;
+                        var imgName = false;
+                    }
+                    if ($(this).find('.tilteInput').val().length == 0) {
+                        title = $(this).data('title').toString();
+                    } else {
+                        title = $(this).find('.tilteInput').val();
+                    }
+                    if ($(this).find('.classInput').val().length == 0) {
+                        classItem = false;
+                    } else {
+                        classItem = $(this).find('.classInput').val();
+                    }
+                    if ($(this).find('.idInput').val().length == 0) {
+                        idInput = false;
+                    } else {
+                        idInput = $(this).find('.idInput').val();
+                    }
+                    var key = 'extra' + $(this).attr('data-item');
+                    var addmenu = {
+                        title: title,
+                        id: id,
+                        model: model,
+                        alias: alias,
+                        depth: depth,
+                        path: path,
+                        imgPath: imgPath,
+                        imgName: imgName
+                    };
+                }
+                if ($(this).attr('data-parent')) {
+                    var parentKey = 'extra' + $(this).data('parent');
+                    var parent = extra[parentKey];
+                    if (parent) {
+                        for (var j = depth; j > 1 && parent; j--) {
+                            parent = parent.depthMenu;
+                        }
+                        if (parent) {
+                            if (typeof parent.depthMenu == "undefined") {
+                                parent.depthMenu = {};
+                            }
+                            parent.depthMenu[key] = addmenu;
+                        }
+                    } else {
+                        extra[keyExtra] = addmenu;
+                    }
+                } else {
+                    extra[keyExtra] = addmenu;
+                }
+            });
+            countDraggable++
+        });
+        var allMenu=Object.assign(menu,extra);
+        console.log(JSON.stringify(allMenu, "", 4));
         var newval = JSON.stringify(menu);
     });
 
@@ -150,10 +239,12 @@ jQuery(document).ready(function(){
         var url = $(this).data('url');
         var id = $(this).parents('li.wells').attr('data-item');
         var className = $(this).parents('li.wells').attr('data-model');
+        var extId=$(this).parents('ul').attr('data-class');
+        var fullId=extId+'-'+id;
         $.ajax({
             type: "GET",
             url:url,
-            data:"id="+id+"&className="+className,
+            data:"id="+fullId+"&className="+className,
             success: function(data){
                 $(".dropFileHide").html(data);
                 $(".dropFileHide").show();

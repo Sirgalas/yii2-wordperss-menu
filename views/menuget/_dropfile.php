@@ -14,7 +14,7 @@ if(isset($found)){?>
                 var mm = date.getMonth() + 1; // месяц 1-12
                 if (mm < 10) mm = '0' + mm;
                 var path = '".$module->imageSetPath."'+date.getFullYear()+\"/\"+mm;
-                var li= $('#menu-to-edit li#".$id."');
+                var li= $('ul li#".$id."');
                 var liHtml=li.html();
                 var src= path+'/'+file.name;
                 var image = '<image src=\"'+src+'\" data-pathImage=\"'+path+'\" data-fileName=\"'+file.name+'\" />';
