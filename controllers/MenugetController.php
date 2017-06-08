@@ -75,12 +75,23 @@ class MenugetController extends Controller
                    ]);
                }
            }
-           return $this->render('create',[
-               /*'allModels'  =>  $module->getAllModels(),*/
-               'model'      =>  $model,
-               'module'     =>  $module,
-               'found'      =>  null,
-               'uploadModel' =>  $uploadModel
-           ]);
-       }
+           if ($model->load(Yii::$app->request->post())) {
+               if($model->save()){
+                   return $this->redirect('index');
+               }else{
+                   return var_dump($model->getErrors());
+               }
+
+           }
+               return $this->render('create', [
+                   /*'allModels'  =>  $module->getAllModels(),*/
+                   'model' => $model,
+                   'module' => $module,
+                   'found' => null,
+                   'uploadModel' => $uploadModel
+               ]);
+           }
+
+        public function actionUpdate($id){}
+
 }

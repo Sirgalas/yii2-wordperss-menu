@@ -29,7 +29,7 @@ class Menu extends ActiveRecord
                 [['content'], 'string'],
                 [['name'], 'string', 'max' => 510],
                 [['name'], 'unique'],
-                [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+                [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             ];
         }else{
             return [
@@ -37,7 +37,7 @@ class Menu extends ActiveRecord
                 [[$module->modelDb["content"]], 'string'],
                 [[$module->modelDb["name"],$module->modelDb["serviceField"]], 'string', 'max' => 510],
                 [[$module->modelDb["name"]], 'unique'],
-                [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+                [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             ];
         }
     }
