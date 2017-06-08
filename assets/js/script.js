@@ -56,16 +56,9 @@ jQuery(document).ready(function(){
             ui.item.attr('id',fullId);
         }
     }).disableSelection();
-    /*$(".droppable").droppable({
-     drop:function(event, ui){
-     alert('yes');
-     console.log(event);
-     }
-     });*/
     $(".sortable-ui").on('click','.wells .del',function(){
         $(this).parent('.wells').remove()
     });
-
     $("#secures").click(function (e) {
         e.preventDefault();
         var menu = {};
@@ -141,10 +134,8 @@ jQuery(document).ready(function(){
         });
         var countDraggable = 0;
         $('.extra').each(function () {
-
             var keyExtra = 'extra' + countDraggable;
             $(this).find("li").each(function (i) {
-
                 if ($(this).data('menu')) {
                     var menuItem = $(this).data('menu');
                     var depth = parseInt($(this).attr('data-depth'));
@@ -218,7 +209,6 @@ jQuery(document).ready(function(){
         console.log(JSON.stringify(allMenu, "", 4));
         var newval = JSON.stringify(menu);
     });
-
     $(".sortable-ui").on('click','.wells .showInput',function(){
         var input =$(this).siblings('p.form-group');
         if(input.hasClass('hide')){
@@ -248,10 +238,8 @@ jQuery(document).ready(function(){
             success: function(data){
                 $(".dropFileHide").html(data);
                 $(".dropFileHide").show();
-                //$("#menuget-imagefile").dropzone({url:url});
             }
         });
-
     });
 });
 

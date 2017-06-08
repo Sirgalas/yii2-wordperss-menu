@@ -32,6 +32,11 @@ MenuAsset::register($this);
                     <?php echo '<div class="form-group field-menu">';
                     //var class= alias.parentNode.previousElementSibling.childNodes[0];
                         $selectArr=$model->addSelect($modul);
+                    if(isset($module->imageSetPath)&&isset($module->imageResize)){
+                        $url=Html::a(Module::t('translit','Download image'),'#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile']);
+                    }else{
+                        $url='';
+                    }
                       echo Select2::widget([
                          'name' => 'state_2',
                          'value' => '',
@@ -47,7 +52,7 @@ MenuAsset::register($this);
                                 var value = sortable.innerHTML
                                 var text = print.args.data.text;
                                 var id = print.args.data.id;
-                                var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"menu-'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>".Module::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p><p class=\"form-group hide\">".Html::a('Download image','#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile'])."</p></li>';
+                                var input = '<li class=\"ui-state-default wells\" data-path=\"'+path.value+'\" id=\"menu-'+count+'\" data-model=\"'+model.value+'\"  data-alias=\"'+alias.value+'\" data-title=\"'+text+'\" data-depth=\"0\" data-id=\"'+id+'\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>".Module::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p><p class=\"form-group hide\">".$url."</p></li>';
                                 $('.dropFileHide').hide();
                                 sortable.innerHTML=value +''+ input;
                                 count++; }"
