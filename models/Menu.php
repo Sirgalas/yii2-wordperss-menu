@@ -37,7 +37,7 @@ class Menu extends ActiveRecord
                 [[$module->modelDb["content"]], 'string'],
                 [[$module->modelDb["name"],$module->modelDb["serviceField"]], 'string', 'max' => 510],
                 [[$module->modelDb["name"]], 'unique'],
-                [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+                //[['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             ];
         }
     }

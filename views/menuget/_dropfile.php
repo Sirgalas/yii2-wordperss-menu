@@ -37,7 +37,7 @@ if(isset($found)){
                         }                 
                         document.getElementById('gods-image').setAttribute('value',newvalue);
                     }",
-                    'success'=>'function(file){console.log(file)}',
+                    'success'=>'function(file){}',
                     'sending' => "function(file, xhr, formData){formData.append('".Yii::$app->request->csrfParam."','".Yii::$app->request->getCsrfToken() ."')}"
                 ]
             ])?>

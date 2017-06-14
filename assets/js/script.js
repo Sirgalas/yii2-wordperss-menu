@@ -56,159 +56,12 @@ jQuery(document).ready(function(){
             ui.item.attr('id',fullId);
         }
     }).disableSelection();
+
     $(".sortable-ui").on('click','.wells .del',function(){
         $(this).parent('.wells').remove()
     });
-    $("#secures").click(function (e) {
-        e.preventDefault();
-        var menu = {};
-        var extra = {};
-        $("#menu-to-edit li").each(function (i) {
-            if ($(this).data('menu')) {
-                var menuItem = $(this).data('menu');
-                var depth = parseInt($(this).attr('data-depth'));
-                var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {menuItem: menuItem, depth: depth}
-            } else {
-                var id = $(this).data('id');
-                var model = $(this).data('model');
-                var alias = $(this).data('alias');
-                var depth = parseInt($(this).attr('data-depth'));
-                var path = $(this).data('path');
-                var title = '';
-                if ($(this).find('img')) {
-                    var img = $(this).find('img');
-                    var imgPath = img.attr('data-pathimage');
-                    var imgName = img.attr('data-filename');
-                } else {
-                    var imgPath = false;
-                    var imgName = false;
-                }
-                if ($(this).find('.tilteInput').val().length == 0) {
-                    title = $(this).data('title').toString();
-                } else {
-                    title = $(this).find('.tilteInput').val();
-                }
-                if ($(this).find('.classInput').val().length == 0) {
-                    classItem = false;
-                } else {
-                    classItem = $(this).find('.classInput').val();
-                }
-                if ($(this).find('.idInput').val().length == 0) {
-                    idInput = false;
-                } else {
-                    idInput = $(this).find('.idInput').val();
-                }
-                var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {
-                    title: title,
-                    id: id,
-                    model: model,
-                    alias: alias,
-                    depth: depth,
-                    path: path,
-                    imgPath: imgPath,
-                    imgName: imgName
-                };
-            }
-            if ($(this).attr('data-parent')) {
-                var parentKey = 'menu' + $(this).data('parent');
 
-                var parent = menu[parentKey];
-                if (parent) {
-                    for (var j = depth; j > 1 && parent; j--) {
-                        parent = parent.depthMenu;
-                    }
-                    if (parent) {
-                        if (typeof parent.depthMenu == "undefined") {
-                            parent.depthMenu = {};
-                        }
-                        parent.depthMenu[key] = addmenu;
-                    }
-                } else {
-                    menu[key] = addmenu;
-                }
-            } else {
-                menu[key] = addmenu;
-            }
-        });
-        var countDraggable = 0;
-        $('.extra').each(function () {
-            var keyExtra = 'extra' + countDraggable;
-            $(this).find("li").each(function (i) {
-                if ($(this).data('menu')) {
-                    var menuItem = $(this).data('menu');
-                    var depth = parseInt($(this).attr('data-depth'));
-                    var key = 'menu' + $(this).attr('data-item');
-                    var addmenu = {menuItem: menuItem, depth: depth}
-                } else {
-                    var id = $(this).data('id');
-                    var model = $(this).data('model');
-                    var alias = $(this).data('alias');
-                    var depth = parseInt($(this).attr('data-depth'));
-                    var path = $(this).data('path');
-                    var title = '';
-                    if ($(this).find('img')) {
-                        var img = $(this).find('img');
-                        var imgPath = img.attr('data-pathimage');
-                        var imgName = img.attr('data-filename');
-                    } else {
-                        var imgPath = false;
-                        var imgName = false;
-                    }
-                    if ($(this).find('.tilteInput').val().length == 0) {
-                        title = $(this).data('title').toString();
-                    } else {
-                        title = $(this).find('.tilteInput').val();
-                    }
-                    if ($(this).find('.classInput').val().length == 0) {
-                        classItem = false;
-                    } else {
-                        classItem = $(this).find('.classInput').val();
-                    }
-                    if ($(this).find('.idInput').val().length == 0) {
-                        idInput = false;
-                    } else {
-                        idInput = $(this).find('.idInput').val();
-                    }
-                    var key = 'extra' + $(this).attr('data-item');
-                    var addmenu = {
-                        title: title,
-                        id: id,
-                        model: model,
-                        alias: alias,
-                        depth: depth,
-                        path: path,
-                        imgPath: imgPath,
-                        imgName: imgName
-                    };
-                }
-                if ($(this).attr('data-parent')) {
-                    var parentKey = 'extra' + $(this).data('parent');
-                    var parent = extra[parentKey];
-                    if (parent) {
-                        for (var j = depth; j > 1 && parent; j--) {
-                            parent = parent.depthMenu;
-                        }
-                        if (parent) {
-                            if (typeof parent.depthMenu == "undefined") {
-                                parent.depthMenu = {};
-                            }
-                            parent.depthMenu[key] = addmenu;
-                        }
-                    } else {
-                        extra[keyExtra] = addmenu;
-                    }
-                } else {
-                    extra[keyExtra] = addmenu;
-                }
-            });
-            countDraggable++
-        });
-        var allMenu=Object.assign(menu,extra);
-        console.log(JSON.stringify(allMenu, "", 4));
-        var newval = JSON.stringify(menu);
-    });
+
     $(".sortable-ui").on('click','.wells .showInput',function(){
         var input =$(this).siblings('p.form-group');
         if(input.hasClass('hide')){
@@ -238,10 +91,176 @@ jQuery(document).ready(function(){
             success: function(data){
                 $(".dropFileHide").html(data);
                 $(".dropFileHide").show();
+                //$("#menuget-imagefile").dropzone({url:url});
             }
         });
+
     });
+
+
+    $('#formMenu').submit(function(ev) {
+        var menu = {};
+        var menuExt = {};
+        var extra = {};
+        var menus = {}
+        $("#menu-to-edit li").each(function (i) {
+            var keyMenus=$(this).parents('ul').data('class');
+            if ($(this).data('menu')) {
+                var menuItem = $(this).data('menu');
+                var depth = parseInt($(this).attr('data-depth'));
+                var key = 'menu' + $(this).attr('data-item');
+                var addmenu = {menuItem: menuItem, depth: depth}
+            } else {
+                 var id = $(this).data('id');
+                 var model = $(this).data('model');
+                 var alias = $(this).data('alias');
+                 var depth = parseInt($(this).attr('data-depth'));
+                 var path = $(this).data('path');
+                 var title = '';
+                 if ($(this).find('img')) {
+                     var img = $(this).find('img');
+                     var imgPath = img.attr('data-pathimage');
+                     var imgName = img.attr('data-filename');
+                 } else {
+                     var imgPath = false;
+                     var imgName = false;
+                 }
+                 if ($(this).find('.tilteInput').val().length == 0) {
+                    title = $(this).data('title').toString();
+                 } else {
+                    title = $(this).find('.tilteInput').val();
+                 }
+                 if ($(this).find('.classInput').val().length == 0) {
+                    classItem = false;
+                 } else {
+                    classItem = $(this).find('.classInput').val();
+                 }
+                 if ($(this).find('.idInput').val().length == 0) {
+                    idInput = false;
+                 } else {
+                     idInput = $(this).find('.idInput').val();
+                 }
+                 var key = 'menu' + $(this).attr('data-item');
+                 var addmenu = {
+                     title: title,
+                     id: id,
+                     model: model,
+                     alias: alias,
+                     depth: depth,
+                     path: path,
+                     imgPath: imgPath,
+                     imgName: imgName
+                     };
+             }
+             if ($(this).attr('data-parent')) {
+                var parentKey = 'menu' + $(this).data('parent');
+                var parent = menu[parentKey];
+             if (parent) {
+                for (var j = depth; j > 1 && parent; j--) {
+                    parent = parent.depthMenu;
+                }
+                 if (parent) {
+                     if (typeof parent.depthMenu == "undefined") {
+                        parent.depthMenu = {};
+                     }
+                        parent.depthMenu[key] = addmenu;
+                     }
+             } else {
+                menu[key] = addmenu;}
+             } else {
+                menu[key] = addmenu;}
+                menus[keyMenus]=menu;
+            });
+     $('.extra').each(function () {
+         if($(this).children("li").length!=0) {
+        var keyExtra = $(this).attr('data-class');
+         $(this).children("li").each(function (i) {
+             if ($(this).data('menu')) {
+                 var menuItem = $(this).data('menu');
+                 var depth = parseInt($(this).attr('data-depth'));
+                 var key = 'menu' + $(this).attr('data-item');
+                 var addmenu = {menuItem: menuItem, depth: depth}
+             } else {
+                 var id = $(this).data('id');
+                 var model = $(this).data('model');
+                 var alias = $(this).data('alias');
+                 var depth = parseInt($(this).attr('data-depth'));
+                 var path = $(this).data('path');
+                 var title = '';
+                 if ($(this).find('img')) {
+                     var img = $(this).find('img');
+                     var imgPath = img.attr('data-pathimage');
+                     var imgName = img.attr('data-filename');
+                 } else {
+                     var imgPath = false;
+                     var imgName = false;
+                 }
+                 if ($(this).find('.tilteInput').val().length == 0) {
+                    title = $(this).data('title').toString();
+                 } else {
+                    title = $(this).find('.tilteInput').val();
+                 }
+                 if ($(this).find('.classInput').val().length == 0) {
+                    classItem = false;
+                 } else {
+                    classItem = $(this).find('.classInput').val();
+                 }
+                 if ($(this).find('.idInput').val().length == 0) {
+                    idInput = false;
+                 } else {
+                    idInput = $(this).find('.idInput').val();
+                 }
+                 var key = 'munu' + $(this).attr('data-item');
+                 var addmenuExt = {
+                     title: title,
+                     id: id,
+                     model: model,
+                     alias: alias,
+                     depth: depth,
+                     path: path,
+                     imgPath: imgPath,
+                     imgName: imgName
+                 };
+             }
+             if ($(this).attr('data-parent')) {
+                 var parentKey = 'menu' + $(this).data('parent');
+                 var parent = menuExt[parentKey];
+                 if (parent) {
+                     for (var j = depth; j > 1 && parent; j--) {
+                        parent = parent.depthMenu;
+                     }
+                     if (parent) {
+                         if (typeof parent.depthMenu == "undefined") {
+                            parent.depthMenu = {};
+                         }
+                            parent.depthMenu[key] = addmenuExt;
+                     }
+                 } else {
+                 menuExt[key] = addmenuExt;
+                 }
+             } else {
+             menuExt[key] = addmenuExt;
+             }
+         });
+         menus[keyExtra] = menuExt;
+         }
+     });
+     var nameInput = $('#menu-to-edit').attr('data-name');
+     var pathForm = $('#formMenu').attr('action');
+     var inputTitle = $('#menuget-key_setup');
+     var inputTitleName = inputTitle.attr('name');
+     var inputTitleVal = inputTitle.val();
+     var oData = new FormData(document.getElementById('formMenu'));
+     var title = oData.append(inputTitleName,inputTitleVal);
+     var content=oData.append(nameInput, JSON.stringify(menus, "", 4));
+     var oReq = new XMLHttpRequest();
+     oReq.open("POST",pathForm,true);
+     oReq.send(oData);
+
+     });
 });
+
+
 
 var count=0;
 function log (evt) {

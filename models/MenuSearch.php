@@ -18,6 +18,7 @@ class MenuSearch extends Menu
     public function rules()
     {
         $module=\Yii::$app->controller->module;
+
         if(empty($module->modelDb)){
             return [
                 [['name'], 'safe'],
@@ -48,26 +49,33 @@ class MenuSearch extends Menu
     public function search($params)
     {
         $module=\Yii::$app->controller->module;
+
         if(empty($module->modelDb)) {
-            $query = Menu::find()->where([$module->modelDb["serviceField"] => $module->modelDb["nameServiceField"]]);
-        }else{
             $query = Menu::find();
+        }else{
+
+            $query = Menu::find()->where([$module->modelDb["serviceField"] => $module->modelDb["nameServiceField"]]);
         }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
         $this->load($params);
+
         if (!$this->validate()) {
             return $dataProvider;
         }
-       $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+
         if(empty($module->modelDb)) {
+            $query->andFilterWhere(['id' => $this->id]);
             $query->andFilterWhere(['like', 'name', $this->name]);
         }else{
+            $query->andFilterWhere(['id' => $module->modelDb["id"],]);
             $query->andFilterWhere(['like', $module->modelDb["name"], $this->name]);
         }
+
+
         return $dataProvider;
     }
 }

@@ -1,38 +1,51 @@
 <?php
 use yii\helpers\Html;
 use yii\web\View;
+use sirgalas\menu\Module;
+use yii\widgets\ActiveForm;
+
 ?>
 <div class="menu-create patern">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Module::t('translit','Create menu') ?></h1>
     <div class="frontend-setup-form col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-            <?= $this->render('_form', ['allModels'=>$allModels, 'model'=>$model,'module'=>$module]) ?>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+            <?= $this->render('_form', [ 'model'=>$model,'module'=>$module]) ?>
+            <?php
+            foreach($module->models as $key => $value) {}
+            ?>
+            <div class="dropFileHide">
+            </div>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-            <ul id="menu-to-edit" class="sortable-ui">
-                <?php  if(isset($value)){
-                    foreach ($value as $val){
-                        if($val->cat == 1) {
-                            foreach ($category as $cat) {
-                                if ($val->id == $cat->id) {
-                                    echo "<li class='ui-state-default wells' data-id='$cat->id' data-cat='$val->cat' data-title='$cat->name'>$cat->name<span class='glyphicon glyphicon-remove del'></span></li>";
-                                }
-                            }
-                        }else{
-                            foreach ($pages as $page){
-                                if ($val->id == $page->id) {
-                                    echo "<li class='ui-state-default wells' data-id='$page->id' data-cat='$val->cat' data-title='$page->title'>$page->title<span class='glyphicon glyphicon-remove del'></span></li>";
-                                }
-                            }
-                        }
-                    }
-                } ?>
-            </ul>
-            <a href="#" id="secure" class="btn btn-success col-lg-offset-8 col-md-offset-8 col-sm-offset-6">Закрепить меню</a>
+        
+        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
+            <?php
+            //var_dump($jsonObj);
+            if(empty($module->modelDb)) {
+                $name = 'name';
+                $content = 'content';
+            }else{
+                $name = $module->modelDb["name"];
+                $content = $module->modelDb["content"];
+            }
+            $form = ActiveForm::begin(['id'=>'formMenu']); ?>
+                <?= $form->field($model,$name)->textInput(['class'=>'name'])->label(Module::t('translit','enterNameMenu')) ?>
+                <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menus" data-name="MenuGet[<?= $content ?>]" >
+                    <?= $model->getMenu($jsonObj,$module,'menus'); ?>
+                </ul>
+                <?php if(isset($module->extra_menu)){ 
+                    for($i=$module->extra_menu;$i>0;$i--){ ?>
+                         <ul class="sortable-ui extra connectedSortables " data-class="extra-<?= $i ?>" >
+                             <?= $model->getMenu($jsonObj,$module,'extra-'.$i); ?>
+                         </ul>
+                    <?php } ?>
+                <?php } ?>
+            <div class="form-group">
+                <?= Html::submitButton(Module::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
         </div>
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <?php /*= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])*/ ?>
         </div>
     </div>
-</div>    
+</div>
