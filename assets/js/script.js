@@ -94,17 +94,16 @@ jQuery(document).ready(function(){
                 //$("#menuget-imagefile").dropzone({url:url});
             }
         });
-
     });
     $.fn.hasAttr = function(name) {
         return this.attr(name) !== undefined;
     };
-
     $('#formMenu').on('beforeSubmit', function (ev) {
         var menu = {};
         var menuExt = {};
         var extra = {};
-        var menus = {}
+        var menus = {};
+        var count = 1;
         $("#menu-to-edit li").each(function (i) {
             var keyMenus=$(this).parents('ul').data('class');
             if ($(this).data('menu')) {
@@ -143,6 +142,7 @@ jQuery(document).ready(function(){
                     idInput = $(this).find('.idInput').val();
                 }
                 var key = 'menu' + $(this).attr('data-item');
+
                 var addmenu = {
                     title: title,
                     id: id,
@@ -153,6 +153,7 @@ jQuery(document).ready(function(){
                     imgPath: imgPath,
                     imgName: imgName
                 };
+
             }
             if ($(this).attr('data-parent')) {
                 var parentKey = 'menu' + $(this).data('parent');
@@ -175,6 +176,8 @@ jQuery(document).ready(function(){
             }
             menus[keyMenus]=menu;
         });
+
+        console.log(JSON.stringify(menus));
         $('.extra').each(function () {
             if($(this).children("li").length!=0) {
                 var keyExtra = $(this).attr('data-class');
@@ -256,7 +259,7 @@ jQuery(document).ready(function(){
         var inputTitleVal = inputTitle.val();
         var oData = new FormData(document.getElementById('formMenu'));
         oData.append(inputTitleName,inputTitleVal);
-        oData.append(nameInput, JSON.stringify(menus, "", 4));
+        oData.append(nameInput, JSON.stringify(menus));
         if($('#secures').hasAttr('data-nameservicefield')){
             var servicefield=$('#secures').data('servicefield');
             var nameservicefield = $('#secures').data('nameservicefield')
@@ -266,14 +269,22 @@ jQuery(document).ready(function(){
         oReq.open("POST",pathForm,true);
         oReq.send(oData);
         var path = $('#secures').data('formurl');
-        window.location.assign('http://'+window.location.hostname+path);
+        ///window.location.assign('http://'+window.location.hostname+path);
         return false;
     });
 });
 
+if($('li').is('.wells')){
+    var maxLi=0;
+    $("#menu-to-edit li").each(function (){
+        maxLi=Math.max(maxLi,parseInt($(this).attr('data-item')));
+    });
+    var count=maxLi+1;
+}else{
+    var count=0;
+}
 
 
-var count=0;
 function log (evt) {
     if (!evt) {
         var args = '{}';
