@@ -71,7 +71,7 @@ class MenuSearch extends Menu
             $query->andFilterWhere(['id' => $this->id]);
             $query->andFilterWhere(['like', 'name', $this->name]);
         }else{
-            $query->andFilterWhere(['id' => $module->modelDb["id"],]);
+            $query->andFilterWhere([$module->modelDb["id"] => $this->id ]);
             $query->andFilterWhere(['like', $module->modelDb["name"], $this->name]);
         }
 
