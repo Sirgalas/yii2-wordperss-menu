@@ -34,16 +34,24 @@ class MenuGet extends Menu
                 }else{
                     $img='';
                 }
-                $str .= "<li id=\"$idStr-$count\" class=\"ui-state-default wells\" data-path=\"$menu->path\" data-model=\"$menu->model\" data-alias=\"$menu->alias\" data-title=\"$menu->title\" data-depth=\"$menu->depth\" data-id=\"$menu->id\" data-item=\"$count\">$img $menu->title";
-                $str .= "<span class=\"glyphicon glyphicon-remove del\"></span>";
-                $str .= "<span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
-                $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','title')."<input class=\"form-control tilteInput\" placeholder=\" ".Module::t('translit','Enter title')."\" type=\"text\"></label></p>";
-                $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','class')."<input class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" type=\"text\"></label></p>";
-                $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','id')."<input class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" type=\"text\"></label></p>";
-                if(!empty($module->imageSetPath)&&!empty($module->imageResize)){
-                    $str .='<p class="form-group hide">';
-                    $str .=Html::a(Module::t('translit','Download image'),'#', ['data-url'=>Url::to(["/menu/menuget/create"]), 'class'=>'showDropFile']);
-                    $str .='</p>';
+                if(isset($menu->menuItem)){
+                    $str .= "<li class=\"ui-state-default wells\"  data-menu=\"$menu->menuItem\"  data-depth=\"$menu->depth\"  data-item=\"$menu->item\"  data-title=\'$menu->text\' >$menu->text<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
+                    $str .= "<p class=\"form-group hide\"><label>$menu->text Module::t('translit','title')<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p>";
+                    $str .= "</li>";
+                }else {
+                    $str .= "<li id=\"$idStr-$count\" class=\"ui-state-default wells\" data-path=\"$menu->path\" data-model=\"$menu->model\" data-alias=\"$menu->alias\" data-title=\"$menu->title\" data-depth=\"$menu->depth\" data-id=\"$menu->id\" data-item=\"$count\">$img $menu->title";
+                    $str .= "<span class=\"glyphicon glyphicon-remove del\"></span>";
+                    $str .= "<span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
+                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'title') . "<input class=\"form-control tilteInput\" placeholder=\" " . Module::t('translit', 'Enter title') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'class') . "<input class=\"form-control classInput\" placeholder=\"" . Module::t('translit', 'Enter class') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'id') . "<input class=\"form-control idInput\" placeholder=\"" . Module::t('translit', 'Enter id') . "\" type=\"text\"></label></p>";
+                    if (!empty($module->imageSetPath) && !empty($module->imageResize)) {
+                        $str .= '<p class="form-group hide">';
+                        $str .= Html::a(Module::t('translit', 'Download image'), '#', ['data-url' => Url::to(["/menu/menuget/create"]), 'class' => 'showDropFile']);
+                        $str .= '</p>';
+                    }
                 }
                 $str .='</li>';
                 $count++;

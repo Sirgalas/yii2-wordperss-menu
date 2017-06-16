@@ -36,7 +36,7 @@ $menu=new MenuGet();
                          'pluginEvents' => [
                              "select2:selecting" => "function(e) {
                                 var print = log(e);
-                                var parent = $('#theSelectTwo');
+                                var parent = $(this).parents('#theSelectTwo')
                                 var alias=parent.data('alias');
                                 var model= parent.data('class');
                                 var path = parent.data('path');
@@ -66,7 +66,7 @@ $menu=new MenuGet();
                     var print = log(e);
                     var id = print.args.data.id;
                     var text = print.args.data.text;
-                    var input = '<li class=\"ui-state-default wells\"  data-menu=\"'+id+'\"  data-depth=\"0\"  data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title ".Module::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p></li>';
+                    var input = '<li class=\"ui-state-default wells\"  data-menu=\"'+id+'\"  data-depth=\"0\"  data-item=\"'+count+'\"  data-title=\''+text+'\' >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>title ".Module::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p></li>';
                     count++;
                     $('.dropFileHide').hide();
                     var sortable = document.getElementById('menu-to-edit');
@@ -77,6 +77,7 @@ $menu=new MenuGet();
             ]);
             echo '</div>';
         ActiveForm::end();
+
     ?>
 
    

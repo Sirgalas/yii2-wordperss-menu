@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use sirgalas\menu\Module;
+
 if(isset($found)){
     if(isset($found['image'])){ ?>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id'=>'dropzone']]) ?>

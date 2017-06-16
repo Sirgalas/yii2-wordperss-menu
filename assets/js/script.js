@@ -109,8 +109,10 @@ jQuery(document).ready(function(){
             if ($(this).data('menu')) {
                 var menuItem = $(this).data('menu');
                 var depth = parseInt($(this).attr('data-depth'));
+                var item = $(this).attr('data-item');
+                var text = $(this).attr('data-title');
                 var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {menuItem: menuItem, depth: depth}
+                var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
             } else {
                 var id = $(this).data('id');
                 var model = $(this).data('model');
@@ -177,7 +179,6 @@ jQuery(document).ready(function(){
             menus[keyMenus]=menu;
         });
 
-        console.log(JSON.stringify(menus));
         $('.extra').each(function () {
             if($(this).children("li").length!=0) {
                 var keyExtra = $(this).attr('data-class');
@@ -185,8 +186,10 @@ jQuery(document).ready(function(){
                     if ($(this).data('menu')) {
                         var menuItem = $(this).data('menu');
                         var depth = parseInt($(this).attr('data-depth'));
+                        var item = $(this).attr('data-item');
+                        var text = $(this).attr('data-title');
                         var key = 'menu' + $(this).attr('data-item');
-                        var addmenu = {menuItem: menuItem, depth: depth}
+                        var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
                     } else {
                         var id = $(this).data('id');
                         var model = $(this).data('model');
@@ -252,6 +255,7 @@ jQuery(document).ready(function(){
                 menus[keyExtra] = menuExt;
             }
         });
+        console.log(JSON.stringify(menus, "", 4));
         var nameInput = $('#menu-to-edit').attr('data-name');
         var pathForm = $('#formMenu').attr('action');
         var inputTitle = $('#menuget-key_setup');
@@ -259,7 +263,7 @@ jQuery(document).ready(function(){
         var inputTitleVal = inputTitle.val();
         var oData = new FormData(document.getElementById('formMenu'));
         oData.append(inputTitleName,inputTitleVal);
-        oData.append(nameInput, JSON.stringify(menus));
+        oData.append(nameInput, JSON.stringify(menus, "", 4));
         if($('#secures').hasAttr('data-nameservicefield')){
             var servicefield=$('#secures').data('servicefield');
             var nameservicefield = $('#secures').data('nameservicefield')
@@ -269,7 +273,7 @@ jQuery(document).ready(function(){
         oReq.open("POST",pathForm,true);
         oReq.send(oData);
         var path = $('#secures').data('formurl');
-        ///window.location.assign('http://'+window.location.hostname+path);
+        window.location.assign('http://'+window.location.hostname+path);
         return false;
     });
 });

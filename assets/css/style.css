@@ -15,7 +15,7 @@
 }
 
 .sortable-ui{
-    min-height: 500px;
+    height: 500px;
     overflow: auto;
     display: block;
     float: left;
@@ -25,6 +25,8 @@
     border: 1px solid #d2d6de;
 
 }
+
+
 .col-lg-6 .sortable-ui{
     min-height: 900px;
 }
@@ -53,6 +55,16 @@
     margin-top: 2px;
     cursor: pointer;
 }
+/*
+.sortable-ui .extra{
+    background-color: transparent;
+    border: medium none;
+    padding: 10px 17px 0 0;
+    position: absolute;
+    right: 0;
+    width: auto;
+    z-index: 1;
+}*/
 
 .sortable-ui.extra  {
     background-color: #c6c6c6;
@@ -83,10 +95,11 @@
 }
 
 body .dropzone .dz-default.dz-message{
-    height: 78px;
+
     margin-left: -132px;
     width: 274px;
     background-size: 100% ;
+    background-image: url("../image/spritemap.png");
 }
 
 body .dropFileHide{
