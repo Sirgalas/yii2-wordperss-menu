@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\ActiveForm;
-use sirgalas\menu\Module;
+use sirgalas\menu\MenuModule;
 
 if(isset($found)){
     if(isset($found['image'])){ ?>
@@ -44,8 +44,8 @@ if(isset($found)){
             ])?>
         <?php ActiveForm::end() ?>
     <?php } else {
-        echo Module::t('translit','ErrorNotImage');
+        echo MenuModule::t('translit','ErrorNotImage');
     } ?>
 <?php } else {
-    echo Module::t('translit','ErrorNotPath');
+    echo MenuModule::t('translit','ErrorNotPath');
 }?>

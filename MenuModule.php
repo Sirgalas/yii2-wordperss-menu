@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 /**
  * transliter module definition class
  */
-class Module extends \yii\base\Module
+class MenuModule extends \yii\base\Module
 {
     /**
      * @var

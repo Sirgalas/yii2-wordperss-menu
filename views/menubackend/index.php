@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use sirgalas\menu\Module;
+use sirgalas\menu\MenuModule;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\FrontendSetupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Module::t('translit','Menu setup');
+$this->title = MenuModule::t('translit','Menu setup');
 $this->params['breadcrumbs'][] = $this->title;
  ?>
 <div class="frontend-setup-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Module::t('translit','Create menu'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(MenuModule::t('translit','Create menu'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php
    

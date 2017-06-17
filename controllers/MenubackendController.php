@@ -5,8 +5,6 @@ namespace sirgalas\menu\controllers;
 
 use sirgalas\menu\models\MenuSearch;
 use sirgalas\menu\models\UploadImage;
-
-
 use yii\helpers\Json;
 use yii\web\Controller;
 use sirgalas\menu\models\MenuGet;
@@ -14,7 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use Yii;
 
-class MenugetController extends Controller
+class MenubackendController extends Controller
 {
     public function actionIndex(){
         $searchModel = new MenuSearch();

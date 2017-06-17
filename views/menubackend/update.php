@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Html;
 use yii\web\View;
-use sirgalas\menu\Module;
+use sirgalas\menu\MenuModule;
 use yii\widgets\ActiveForm;
 
 ?>
 <div class="menu-create patern">
-    <h1><?= Module::t('translit','Create menu') ?></h1>
+    <h1><?= MenuModule::t('translit','Create menu') ?></h1>
     <div class="frontend-setup-form col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
             <?= $this->render('_form', [ 'model'=>$model,'module'=>$module]) ?>
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
                 $content = $module->modelDb["content"];
             }
             $form = ActiveForm::begin(['id'=>'formMenu']); ?>
-                <?= $form->field($model,$name)->textInput(['class'=>'name'])->label(Module::t('translit','enterNameMenu')) ?>
+                <?= $form->field($model,$name)->textInput(['class'=>'name'])->label(MenuModule::t('translit','enterNameMenu')) ?>
                 <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menus" data-name="MenuGet[<?= $content ?>]" >
                     <?= $model->getMenu($jsonObj,$module,'menus'); ?>
                 </ul>
@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
                     <?php } ?>
                 <?php } ?>
             <div class="form-group">
-                <?= Html::submitButton(Module::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]) ?>
+                <?= Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]) ?>
             </div>
             <?php ActiveForm::end(); ?>
         </div>

@@ -5,7 +5,7 @@ namespace sirgalas\menu\models;
 
 
 use yii\db\ActiveRecord;
-use sirgalas\menu\Module;
+use sirgalas\menu\MenuModule;
 class Menu extends ActiveRecord
 {
 
@@ -46,11 +46,11 @@ class Menu extends ActiveRecord
         $module = \Yii::$app->controller->module;
         $returnArray=array([
             'id' => 'id',
-            'name' => Module::t('translit','Name'),
-            'content'    => Module::t('translit','Content'),
+            'name' => MenuModule::t('translit','Name'),
+            'content'    => MenuModule::t('translit','Content'),
         ]);
         if(!empty($module->modelDb)){
-            $returnArray['serviceField']=Module::t('translit','Service-Feild');
+            $returnArray['serviceField']=MenuModule::t('translit','Service-Feild');
         }
         return $returnArray;
     }
