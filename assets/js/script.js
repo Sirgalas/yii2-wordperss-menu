@@ -111,8 +111,28 @@ jQuery(document).ready(function(){
                 var depth = parseInt($(this).attr('data-depth'));
                 var item = $(this).attr('data-item');
                 var text = $(this).attr('data-title');
-                var key = 'menu' + $(this).attr('data-item');
-                var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
+                var key = 'menu' + $(this).attr('data-item'); if ($(this).find('.tilteInput').val().length == 0) {
+                    title = $(this).data('title').toString();
+                } else {
+                    title = $(this).find('.tilteInput').val();
+                }
+                if ($(this).find('.classInput').val().length == 0) {
+                    classItem = false;
+                } else {
+                    classItem = $(this).find('.classInput').val();
+                }
+                if ($(this).find('.idInput').val().length == 0) {
+                    idInput = false;
+                } else {
+                    idInput = $(this).find('.idInput').val();
+                }
+                if ($(this).find('.aliasInput').val().length == 0) {
+                    aliasInput = false;
+                } else {
+                    aliasInput = $(this).find('.aliasInput').val();
+                }
+                var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text,classItem:classItem,idInput:idInput,aliasInput:aliasInput}
+
             } else {
 
                 var model = $(this).data('model');
@@ -151,6 +171,8 @@ jQuery(document).ready(function(){
                     alias: alias,
                     depth: depth,
                     path: path,
+                    classItem:classItem,
+                    idInput:idInput,
                     imgPath: imgPath,
                     imgName: imgName
                 };
@@ -188,7 +210,27 @@ jQuery(document).ready(function(){
                         var item = $(this).attr('data-item');
                         var text = $(this).attr('data-title');
                         var key = 'menu' + $(this).attr('data-item');
-                        var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
+                        if ($(this).find('.tilteInput').val().length == 0) {
+                            title = $(this).data('title').toString();
+                        } else {
+                            title = $(this).find('.tilteInput').val();
+                        }
+                        if ($(this).find('.classInput').val().length == 0) {
+                            classItem = false;
+                        } else {
+                            classItem = $(this).find('.classInput').val();
+                        }
+                        if ($(this).find('.idInput').val().length == 0) {
+                            idInput = false;
+                        } else {
+                            idInput = $(this).find('.idInput').val();
+                        }
+                        if ($(this).find('.aliasInput').val().length == 0) {
+                            aliasInput = false;
+                        } else {
+                            aliasInput = $(this).find('.aliasInput').val();
+                        }
+                        var addmenuExt = {menuItem: menuItem, depth: depth,item:item,text:text,classItem:classItem,idInput:idInput,aliasInput:aliasInput}
                     } else {
                         var model = $(this).data('model');
                         var alias = $(this).data('alias');
@@ -225,6 +267,8 @@ jQuery(document).ready(function(){
                             alias: alias,
                             depth: depth,
                             path: path,
+                            classItem:classItem,
+                            idInput:idInput,
                             imgPath: imgPath,
                             imgName: imgName
                         };
