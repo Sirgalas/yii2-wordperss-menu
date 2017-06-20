@@ -32,16 +32,10 @@ use yii\widgets\ActiveForm;
                         echo "<ul class=\"sortable-ui extra connectedSortables \" data-class=\"extra-".$i."\"></ul>";
                     }
                  } ?>
-            <div class="form-group">
-                <?php if(empty($module->modelDb["nameServiceField"]))
-                    echo Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]);
-                 else
-                    echo Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-servicefield'=>'MenuGet['.$module->modelDb["serviceField"].']','data-nameservicefield'=>$module->modelDb["nameServiceField"],'data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]); ?>
-                </div>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <?= Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menubackend'])]); ?>
+                            </div>
             <?php ActiveForm::end(); ?>
-        </div>
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?php /*= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])*/ ?>
         </div>
     </div>
 </div>

@@ -114,7 +114,7 @@ jQuery(document).ready(function(){
                 var key = 'menu' + $(this).attr('data-item');
                 var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
             } else {
-                var id = $(this).data('id');
+
                 var model = $(this).data('model');
                 var alias = $(this).data('alias');
                 var depth = parseInt($(this).attr('data-depth'));
@@ -147,7 +147,6 @@ jQuery(document).ready(function(){
 
                 var addmenu = {
                     title: title,
-                    id: id,
                     model: model,
                     alias: alias,
                     depth: depth,
@@ -191,7 +190,6 @@ jQuery(document).ready(function(){
                         var key = 'menu' + $(this).attr('data-item');
                         var addmenu = {menuItem: menuItem, depth: depth,item:item,text:text}
                     } else {
-                        var id = $(this).data('id');
                         var model = $(this).data('model');
                         var alias = $(this).data('alias');
                         var depth = parseInt($(this).attr('data-depth'));
@@ -223,7 +221,6 @@ jQuery(document).ready(function(){
                         var key = 'munu' + $(this).attr('data-item');
                         var addmenuExt = {
                             title: title,
-                            id: id,
                             model: model,
                             alias: alias,
                             depth: depth,

@@ -47,16 +47,9 @@ class MenuSearch extends Menu
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
-        $module=\Yii::$app->controller->module;
-
-        if(empty($module->modelDb)) {
-            $query = Menu::find();
-        }else{
-
-            $query = Menu::find()->where([$module->modelDb["serviceField"] => $module->modelDb["nameServiceField"]]);
-        }
-
+    {        
+        $query = Menu::find();
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -66,16 +59,9 @@ class MenuSearch extends Menu
         if (!$this->validate()) {
             return $dataProvider;
         }
-
-        if(empty($module->modelDb)) {
-            $query->andFilterWhere(['id' => $this->id]);
-            $query->andFilterWhere(['like', 'name', $this->name]);
-        }else{
-            $query->andFilterWhere([$module->modelDb["id"] => $this->id ]);
-            $query->andFilterWhere(['like', $module->modelDb["name"], $this->name]);
-        }
-
-
+        $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        
         return $dataProvider;
     }
 }

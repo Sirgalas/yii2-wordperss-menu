@@ -39,13 +39,10 @@ use yii\widgets\ActiveForm;
                          </ul>
                     <?php } ?>
                 <?php } ?>
-            <div class="form-group">
-                <?= Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menuget'])]) ?>
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <?= Html::submitButton(MenuModule::t('translit','Save'), ['class' => 'btn btn-success', 'id' => 'secures','data-formurl'=>Yii::$app->urlManager->createUrl(['/menu/menubackend'])]) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        </div>
-        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <?php /*= Html::submitButton($model->isNewRecord ? Yii::t('backend','CREATE') : Yii::t('backend','UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])*/ ?>
         </div>
     </div>
 </div>

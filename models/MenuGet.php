@@ -2,7 +2,7 @@
 
 namespace sirgalas\menu\models;
 use yii\helpers\ArrayHelper;
-use sirgalas\menu\Module;
+use sirgalas\menu\MenuModule;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -10,16 +10,11 @@ use yii\helpers\Url;
 class MenuGet extends Menu
 {
     public function addSelect($models){
-        return ArrayHelper::map($models['class']::find()->asArray()->all(),$models['id'],$models['title']);
+        return ArrayHelper::map($models['class']::find()->asArray()->all(),$models['alias'],$models['title']);
     }
-    
-    public function addSelectMenu($modules){
-        if($modules->modelDb){
-            $nameModel=$modules->modelDb['nameModel'];
-            return ArrayHelper::map($nameModel::find()->asArray()->all(),$modules->modelDb['id'],$modules->modelDb['name']);
-        }else{
+
+    public function addSelectMenu(){
             return ArrayHelper::map(Menu::find()->asArray()->all(),'id','name');
-        }
     }
 
     public function getMenu($json,$module,$name){
@@ -36,20 +31,20 @@ class MenuGet extends Menu
                 }
                 if(isset($menu->menuItem)){
                     $str .= "<li class=\"ui-state-default wells\"  data-menu=\"$menu->menuItem\"  data-depth=\"$menu->depth\"  data-item=\"$menu->item\"  data-title=\'$menu->text\' >$menu->text<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
-                    $str .= "<p class=\"form-group hide\"><label>$menu->text Module::t('translit','title')<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".Module::t('translit','Enter title').".\" /></label></p>";
-                    $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".Module::t('translit','Enter class')."\" /></label></p>";
-                    $str .= "<p class=\"form-group hide\"><label>".Module::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".Module::t('translit','Enter id')."\" /></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>$menu->text MenuModule::t('translit','title')<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".MenuModule::t('translit','Enter title').".\" /></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>".MenuModule::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".MenuModule::t('translit','Enter class')."\" /></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>".MenuModule::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".MenuModule::t('translit','Enter id')."\" /></label></p>";
                     $str .= "</li>";
                 }else {
-                    $str .= "<li id=\"$idStr-$count\" class=\"ui-state-default wells\" data-path=\"$menu->path\" data-model=\"$menu->model\" data-alias=\"$menu->alias\" data-title=\"$menu->title\" data-depth=\"$menu->depth\" data-id=\"$menu->id\" data-item=\"$count\">$img $menu->title";
+                    $str .= "<li id=\"$idStr-$count\" class=\"ui-state-default wells\" data-path=\"$menu->path\" data-model=\"$menu->model\" data-alias=\"$menu->alias\" data-title=\"$menu->title\" data-depth=\"$menu->depth\"  data-item=\"$count\">$img $menu->title";
                     $str .= "<span class=\"glyphicon glyphicon-remove del\"></span>";
                     $str .= "<span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
-                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'title') . "<input class=\"form-control tilteInput\" placeholder=\" " . Module::t('translit', 'Enter title') . "\" type=\"text\"></label></p>";
-                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'class') . "<input class=\"form-control classInput\" placeholder=\"" . Module::t('translit', 'Enter class') . "\" type=\"text\"></label></p>";
-                    $str .= "<p class=\"form-group hide\"><label>" . Module::t('translit', 'id') . "<input class=\"form-control idInput\" placeholder=\"" . Module::t('translit', 'Enter id') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'title') . "<input class=\"form-control tilteInput\" placeholder=\" " . MenuModule::t('translit', 'Enter title') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'class') . "<input class=\"form-control classInput\" placeholder=\"" . MenuModule::t('translit', 'Enter class') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'id') . "<input class=\"form-control idInput\" placeholder=\"" . MenuModule::t('translit', 'Enter id') . "\" type=\"text\"></label></p>";
                     if (!empty($module->imageSetPath) && !empty($module->imageResize)) {
                         $str .= '<p class="form-group hide">';
-                        $str .= Html::a(Module::t('translit', 'Download image'), '#', ['data-url' => Url::to(["/menu/menuget/create"]), 'class' => 'showDropFile']);
+                        $str .= Html::a(MenuModule::t('translit', 'Download image'), '#', ['data-url' => Url::to(["/menu/menubackend/create"]), 'class' => 'showDropFile']);
                         $str .= '</p>';
                     }
                 }
@@ -59,10 +54,10 @@ class MenuGet extends Menu
             }
             return $str;
         }else{
-            return Module::t('translit','notMenu');
+            return MenuModule::t('translit','notMenu');
         }
-        
-        
+
+
 
     }
 }

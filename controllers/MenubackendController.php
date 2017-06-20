@@ -76,11 +76,6 @@ class MenubackendController extends Controller
         public function actionUpdate($id){
             $model = $this->findModel($id);
             $module=$this->module;
-            if(empty($module->modelDb)) {
-                $feild = 'content';
-            }else{
-                $feild = $module->modelDb['content'];
-            }
             $uploadModel=new UploadImage();
             if (Yii::$app->request->isAjax) {
                 $request=Yii::$app->request;
@@ -119,7 +114,7 @@ class MenubackendController extends Controller
             if ($model->load(Yii::$app->request->post())&&$model->save()) {
                 return $this->redirect('index');
             }
-            $jsonObj=Json::decode($model->$feild,false);
+            $jsonObj=Json::decode($model->content,false);
             return $this->render('update', [
                 'model' => $model,
                 'module' => $module,
@@ -139,12 +134,8 @@ class MenubackendController extends Controller
 
         protected function findModel($id)
         {
-            $module=$this->module;
-            if(empty($module->modelDb)) {
-                $model = MenuGet::findOne($id);
-            }else{
-                $model = MenuGet::findOne([$module->modelDb['id']=>$id]);
-            }
+
+            $model = MenuGet::findOne($id);
             if ($model !== null) {
                 return $model;
             } else {

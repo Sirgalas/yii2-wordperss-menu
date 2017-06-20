@@ -10,8 +10,10 @@ namespace sirgalas\menu;
 
 
 use sirgalas\menu\models\Menu;
+use sirgalas\menu\models\MenuViews;
 use yii\base\Widget;
-use sirgalas\menu\MenuModule;
+
+use Yii;
 class MenuView extends Widget
 {
     public $name;
@@ -19,10 +21,12 @@ class MenuView extends Widget
         parent::init();
     }
     public function run(){
-        $model=Menu::findOne($this->name);
-        $module= MenuModule::getInstance();
+        $menu=Menu::find()->where(['name'=>$this->name])->one();
+        $model= new Menu();
+        
         return $this->render('menuviews/index',[
-            'module'=>$module
+            'menu' =>  $menu,
+            'model' =>  $model
         ]);
     }
 
