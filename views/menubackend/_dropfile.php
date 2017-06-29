@@ -17,6 +17,7 @@ if(isset($found)){
                         if (mm < 10) mm = '0' + mm;
                         var path = '".$module->imageSetPath."'+date.getFullYear()+\"/\"+mm;
                         var li= $('ul li#".$id."');
+                        console.log(li);
                         var liHtml=li.html();
                         var src= path+'/'+file.name;
                         var image = '<image src=\"'+src+'\" data-pathImage=\"'+path+'\" data-fileName=\"'+file.name+'\" />';

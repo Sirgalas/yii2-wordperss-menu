@@ -11,6 +11,7 @@ namespace sirgalas\menu\models;
 use sirgalas\menu\models\Menu;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use Yii;
 
 class MenuSearch extends Menu
 {
@@ -19,13 +20,15 @@ class MenuSearch extends Menu
     {
         $module=\Yii::$app->controller->module;
 
-        if(empty($module->modelDb)){
-            return [
-                [['name'], 'safe'],
+        if(isset(Yii::$app->modules['menu']->modelDb)){
+            $menuModel=Yii::$app->modules['menu']->modelDb;
+            $menuSetup=new $menuModel;
+            return[
+                [[$menuSetup->getName()],'safe'],
             ];
         }else{
-            return[
-                [[$module->modelDb["name"]],'safe'],
+            return [
+                [['name'], 'safe'],
             ];
         }
     }
@@ -35,8 +38,8 @@ class MenuSearch extends Menu
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+            // bypass scenarios() implementation in the parent class
+            return Model::scenarios();
     }
 
     /**
@@ -47,8 +50,15 @@ class MenuSearch extends Menu
      * @return ActiveDataProvider
      */
     public function search($params)
-    {        
-        $query = Menu::find();
+    {
+        if(isset(Yii::$app->modules['menu']->modelDb)) {
+            $menuModel = Yii::$app->modules['menu']->modelDb;
+            $menuSetup=new $menuModel;
+            $query = $menuModel::find()->where([$menuSetup->getServiceField()=>$menuSetup->getNameServiceField()]);
+        }else{
+            $query = Menu::find();
+        }
+
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

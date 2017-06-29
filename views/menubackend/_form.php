@@ -22,7 +22,7 @@ $menu=new MenuGet();
                     } ?>
                     <?php echo '<div class="form-group field-menu" id="theSelectTwo" data-path="'.$modul['path'].'" data-class="'.$modul['class'].'" >';
 
-                        $selectArr=$model->addSelect($modul);
+                        $selectArr=$menuGet->addSelect($modul);
                     if(isset($module->imageSetPath)&&isset($module->imageResize)){
                         $url=Html::a(MenuModule::t('translit','Download image'),'#', ['data-url'=>Url::to(["/menu/menubackend/create"]), 'class'=>'showDropFile']);
                     }else{
@@ -44,7 +44,7 @@ $menu=new MenuGet();
                                 var value = sortable.html();
                                 var text = print.args.data.text;
                                 var alias = print.args.data.id;
-                                var input = '<li class=\"ui-state-default wells\" data-path=\"'+path+'\" id=\"menu-'+count+'\" data-model=\"'+model+'\"  data-alias=\"'+alias+'\" data-title=\''+text+'\' data-depth=\"0\" data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>".MenuModule::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".MenuModule::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".MenuModule::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".MenuModule::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".MenuModule::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".MenuModule::t('translit','Enter id')."\" /></label></p><p class=\"form-group hide\">".$url."</p></li>';
+                                var input = '<li class=\"ui-state-default wells\" data-path=\"'+path+'\" id=\"menus-'+count+'\" data-model=\"'+model+'\"  data-alias=\"'+alias+'\" data-title=\''+text+'\' data-depth=\"0\" data-item=\"'+count+'\" >'+text+'<span class= \"glyphicon glyphicon-remove del\"></span> <span class=\"glyphicon glyphicon-chevron-down showInput\"></span><p class=\"form-group hide\"><label>".MenuModule::t('translit','title')."<input type=\"text\"  class=\"form-control tilteInput\" placeholder=\"".MenuModule::t('translit','Enter title').".\" /></label></p><p class=\"form-group hide\"><label>".MenuModule::t('translit','class')."<input type=\"text\"  class=\"form-control classInput\" placeholder=\"".MenuModule::t('translit','Enter class')."\" /></label></p><p class=\"form-group hide\"><label>".MenuModule::t('translit','id')."<input type=\"text\" class=\"form-control idInput\" placeholder=\"".MenuModule::t('translit','Enter id')."\" /></label></p><p class=\"form-group hide\">".$url."</p></li>';
                                 $('.dropFileHide').hide();
                                 theInnerHtml=value +''+ input;
                                 sortable.html(theInnerHtml);
@@ -55,7 +55,7 @@ $menu=new MenuGet();
                     echo '</div>';
                 }
             echo '<div class="form-group field-menu">';
-            $selectMenu=$model->addSelectMenu($module);
+            $selectMenu=$menuGet->addSelect($modul);;
             echo Select2::widget([
                 'name' => 'state_2',
                 'value' => '',

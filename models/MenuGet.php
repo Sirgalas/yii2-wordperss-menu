@@ -57,8 +57,5 @@ class MenuGet extends Menu
         }else{
             return MenuModule::t('translit','notMenu');
         }
-
-
-
     }
 }

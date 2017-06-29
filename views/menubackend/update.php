@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
     <h1><?= MenuModule::t('translit','Create menu') ?></h1>
     <div class="frontend-setup-form col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-            <?= $this->render('_form', [ 'model'=>$model,'module'=>$module]) ?>
+            <?= $this->render('_form', [ 'model'=>$model,'module'=>$module,'menuGet'=> $menuGet,]) ?>
             <?php
             foreach($module->models as $key => $value) {}
             ?>
@@ -20,22 +20,24 @@ use yii\widgets\ActiveForm;
         <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
             <?php
             //var_dump($jsonObj);
-            if(empty($module->modelDb)) {
+            if(isset(Yii::$app->modules['menu']->modelDb)) {
+                $menuModel = Yii::$app->modules['menu']->modelDb;
+                $menuSetup = new $menuModel;
+                $name = $menuSetup->getName();
+                $content = $menuSetup->getContent();
+            }else{
                 $name = 'name';
                 $content = 'content';
-            }else{
-                $name = $module->modelDb["name"];
-                $content = $module->modelDb["content"];
             }
             $form = ActiveForm::begin(['id'=>'formMenu']); ?>
                 <?= $form->field($model,$name)->textInput(['class'=>'name'])->label(MenuModule::t('translit','enterNameMenu')) ?>
                 <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menus" data-name="MenuGet[<?= $content ?>]" >
-                    <?= $model->getMenu($jsonObj,$module,'menus'); ?>
+                    <?= $menuGet->getMenu($jsonObj,$module,'menus'); ?>
                 </ul>
                 <?php if(isset($module->extra_menu)){ 
                     for($i=$module->extra_menu;$i>0;$i--){ ?>
                          <ul class="sortable-ui extra connectedSortables " data-class="extra-<?= $i ?>" >
-                             <?= $model->getMenu($jsonObj,$module,'extra-'.$i); ?>
+                             <?= $menuGet->getMenu($jsonObj,$module,'extra-'.$i); ?>
                          </ul>
                     <?php } ?>
                 <?php } ?>

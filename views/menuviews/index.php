@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\Menu;
-$content=json_decode($menu->content);
+$content=json_decode($menu->$content);
 $arrMenu= array();
 
 foreach ($content->menus as $decode){

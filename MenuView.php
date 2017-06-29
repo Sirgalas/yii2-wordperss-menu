@@ -21,12 +21,22 @@ class MenuView extends Widget
         parent::init();
     }
     public function run(){
-        $menu=Menu::find()->where(['name'=>$this->name])->one();
+        if(isset(Yii::$app->modules["menu"]["modelDb"])) {
+            $menuModel = Yii::$app->modules["menu"]["modelDb"];
+            $model=new $menuModel;
+            $menu=$menuModel::find()->where([$model->getName()=>$this->name])->one();
+            $content=$model->getContent();
+        }else{
+            $menu=Menu::find()->where(['name'=>$this->name])->one();
+            $content='content';
+        }
+
         $model= new Menu();
         
         return $this->render('menuviews/index',[
-            'menu' =>  $menu,
-            'model' =>  $model
+            'menu'      =>  $menu,
+            'model'     =>  $model,
+            'content'   =>  $content
         ]);
     }
 
