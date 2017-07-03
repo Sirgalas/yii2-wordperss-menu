@@ -47,9 +47,9 @@ class Menu extends ActiveRecord
         return $returnArray;
     }
     public function Menu($menu){
-        if(isset(Yii::$app->modules['menu']->modelDb)) {
-            $menuModel = Yii::$app->modules['menu']->modelDb;
-            $menuSetup = $menuModel::findOne($menu);
+        if(isset(Yii::$app->modules['menu']['modelDb'])) {
+            $menuModel = Yii::$app->modules['menu']['modelDb'];
+            $munuItem = $menuModel::findOne($menu);
         }else{
             $munuItem=Menu::findOne($menu);
         }

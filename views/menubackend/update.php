@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
             }
             $form = ActiveForm::begin(['id'=>'formMenu']); ?>
                 <?= $form->field($model,$name)->textInput(['class'=>'name'])->label(MenuModule::t('translit','enterNameMenu')) ?>
-                <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menus" data-name="MenuGet[<?= $content ?>]" >
+                <ul id="menu-to-edit" class="sortable-ui connectedSortables" data-class="menus" data-name="<?= $modelForNameInput?>[<?= $content ?>]" >
                     <?= $menuGet->getMenu($jsonObj,$module,'menus'); ?>
                 </ul>
                 <?php if(isset($module->extra_menu)){ 

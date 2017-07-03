@@ -26,12 +26,10 @@ if(isset($found)){
                         
                     }",
                     'removedfile' => "function(file){
-        
                         var value = document.getElementById('gods-image').value;
                         string= file.name
                         if(value.indexOf(string)!=-1){
                             newvalue = value.replace(string,'');
-            
                         }else if(value.indexOf(file.name)!=-1){
                             newvalue = value.replace(file.name,'');
                         }else{

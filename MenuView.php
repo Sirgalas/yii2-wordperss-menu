@@ -17,6 +17,7 @@ use Yii;
 class MenuView extends Widget
 {
     public $name;
+    public $nameAlias;
     public function init(){
         parent::init();
     }
@@ -24,6 +25,7 @@ class MenuView extends Widget
         if(isset(Yii::$app->modules["menu"]["modelDb"])) {
             $menuModel = Yii::$app->modules["menu"]["modelDb"];
             $model=new $menuModel;
+            $modelMenu= new Menu();
             $menu=$menuModel::find()->where([$model->getName()=>$this->name])->one();
             $content=$model->getContent();
         }else{
@@ -36,7 +38,9 @@ class MenuView extends Widget
         return $this->render('menuviews/index',[
             'menu'      =>  $menu,
             'model'     =>  $model,
-            'content'   =>  $content
+            'content'   =>  $content,
+            'modelMenu' =>  $modelMenu,
+            'nameAlias'=>   $this->nameAlias
         ]);
     }
 

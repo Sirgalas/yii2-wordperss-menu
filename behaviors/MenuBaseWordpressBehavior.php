@@ -29,6 +29,10 @@ class MenuBaseWordpressBehavior extends Behavior
 
     public function getContent(){
         return $this->content;
+    }   
+    
+    public function getIdMenuBechavior(){
+        return $this->idBehavior;
     }
 
     public function getServiceField(){

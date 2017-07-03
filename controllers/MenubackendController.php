@@ -52,7 +52,8 @@ class MenubackendController extends Controller
                                'model' => $model,
                                'module' => $module,
                                'menuGet'=> $menuGet,
-                               'uploadModel' => $uploadModel
+                               'uploadModel' => $uploadModel,
+                               'modelForNameInput'=>$modelForNameInput
                            ]);
                        }else{
                        return var_dump($file);

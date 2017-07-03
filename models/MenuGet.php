@@ -1,6 +1,8 @@
 <?php
 
 namespace sirgalas\menu\models;
+
+use Yii;
 use yii\helpers\ArrayHelper;
 use sirgalas\menu\MenuModule;
 use yii\helpers\Html;
@@ -14,7 +16,15 @@ class MenuGet extends Menu
     }
 
     public function addSelectMenu(){
+        if(isset(Yii::$app->modules['menu']->modelDb)) {
+            $test=Yii::$app->modules['menu']->modelDb;
+            $model=new $test;
+
+            return ArrayHelper::map($test::find()->asArray()->all(),$model->getIdMenuBechavior(),$model->getName());
+        }else{
             return ArrayHelper::map(Menu::find()->asArray()->all(),'id','name');
+        }
+
     }
 
     public function getMenu($json,$module,$name){
@@ -41,7 +51,7 @@ class MenuGet extends Menu
                     $str .= "<span class=\"glyphicon glyphicon-remove del\"></span>";
                     $str .= "<span class=\"glyphicon glyphicon-chevron-down showInput\"></span>";
                     $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'title') . "<input class=\"form-control tilteInput\" placeholder=\" " . MenuModule::t('translit', 'Enter title') . "\" type=\"text\"></label></p>";
-                    $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'class') . "<input class=\"form-control  value=\"".$menu->classItem."\" classInput\" placeholder=\"" . MenuModule::t('translit', 'Enter class') . "\" type=\"text\"></label></p>";
+                    $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'class') . "<input class=\"form-control  classInput\" value=\"".$menu->classItem."\" placeholder=\"" . MenuModule::t('translit', 'Enter class') . "\" type=\"text\"></label></p>";
                     $str .= "<p class=\"form-group hide\"><label>" . MenuModule::t('translit', 'id') . "<input class=\"form-control idInput\"   value=\"".$menu->idInput."\"  placeholder=\"" . MenuModule::t('translit', 'Enter id') . "\" type=\"text\"></label></p>";
                     if (!empty($module->imageSetPath) && !empty($module->imageResize)) {
                         $str .= '<p class="form-group hide">';

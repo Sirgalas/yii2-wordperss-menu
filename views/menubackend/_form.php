@@ -55,7 +55,7 @@ $menu=new MenuGet();
                     echo '</div>';
                 }
             echo '<div class="form-group field-menu">';
-            $selectMenu=$menuGet->addSelect($modul);;
+            $selectMenu=$menuGet->addSelectMenu();
             echo Select2::widget([
                 'name' => 'state_2',
                 'value' => '',

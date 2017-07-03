@@ -1,32 +1,23 @@
 <?php
 use yii\widgets\Menu;
-$content=json_decode($menu->$content);
+$contents=json_decode($menu->$content);
 $arrMenu= array();
-
-foreach ($content->menus as $decode){
-    if(isset($decode->menuItem)){
-        $dropMenuAll= $model->Menu($decode->menuItem);
-        $dropMenu=json_decode($dropMenuAll->content);
-        $dropMenuArr=array();
-        foreach ($dropMenu->menus as $jsonDecode){
-            $dropMenuArr[]=['label'=>$jsonDecode->title,'url'=>'#'];
+foreach ($contents->menus as $decode) {
+    if (isset($decode->menuItem)) {
+        $dropMenuAll = $modelMenu->Menu($decode->menuItem);
+        $dropMenu = json_decode($dropMenuAll->$content);
+        $dropMenuArr = array();
+        foreach ($dropMenu->menus as $jsonDecode) {
+            $dropMenuArr[] = ['label' => $jsonDecode->title, 'url' => [$jsonDecode->path,$nameAlias=>$jsonDecode->alias]];
         }
-        //var_dump($dropMenuArr);
-        $arrMenu[]=['label'=>$dropMenuAll->name,'url'=>'#','items'=>$dropMenuArr];
-    }else{
-        $arrMenu[]=['label'=>$decode->title,'url'=>'#'];
+        $arrMenu[] = ['label' => $decode->text, 'url' => '#', 'items' => $dropMenuArr];
+    } else {
+        $arrMenu[] = ['label' => $decode->title,'url' => [$decode->path,$nameAlias=>$decode->alias]];
     }
-
-
 }
-var_dump($arrMenu);
-/*echo Menu::widget([
-    'items' => [
 
-        /*['label' => 'Главная', 'url' => ['site/index']],
-        ['label' => 'О компании', 'url' => ['site/about']],
-        ['label' => 'Услуги', 'url' => ['site/services']],
-        ['label' => 'Контакты', 'url' => ['site/contacts']],
-    ],
-]);*/
+echo Menu::widget([
+    'items' =>
+        $arrMenu
+]);
  ?>
