@@ -55,4 +55,31 @@ class Menu extends ActiveRecord
         }
         return $munuItem;
     }
+
+    public function renderMenu($menu,$content,$nameAlias){
+        $contents=json_decode($menu->$content);
+        foreach ($contents->menus as $decode) {
+            if (isset($decode->menuItem)) {
+                $dropMenuAll = $this->Menu($decode->menuItem);
+                $dropMenu = json_decode($dropMenuAll->$content);
+                $dropMenuArr = array();
+                $objectVars = get_object_vars($dropMenu);
+                foreach ($objectVars as $key => $value) {
+                    if (strpos($key,'extra') ===0) {
+                        foreach ($value as $jsonDecode) {
+                            $dropMenuArr[] = ['label' => $jsonDecode->title, 'url' => [$jsonDecode->path, $nameAlias => $jsonDecode->alias, 'option' => ['class' => 'extra']]];
+                        }
+                    }else{
+                        foreach ($value as $jsonDecode) {
+                            $dropMenuArr[] = ['label' => $jsonDecode->title, 'url' => [$jsonDecode->path,$nameAlias=>$jsonDecode->alias]];
+                        }
+                    }
+                }
+                $arrMenu[] = ['label' => $decode->text, 'url' => '', 'items' => $dropMenuArr, 'linkOptions'=>['data-toggle'=>'not']];
+            } else {
+                $arrMenu[] = ['label' => $decode->title,'url' => [$decode->path,$nameAlias=>$decode->alias]];
+            }
+        }
+        return var_dump($arrMenu);
+    }
 }
