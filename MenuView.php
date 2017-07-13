@@ -113,7 +113,7 @@ class MenuView extends Widget
             ]); 
         }else{
             $modelMenu= new Menu();
-            return $this->controller->renderPartial($modelMenu->renderMenu($allMenu,$menu,$content,$this->nameAlias));
+            return $this->render($modelMenu->renderMenu($allMenu,$menu,$content,$this->nameAlias));
         }
         
     }

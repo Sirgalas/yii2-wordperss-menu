@@ -82,11 +82,15 @@ class Menu extends ActiveRecord
         return $item;
     }
 
-    public function renderMenu($allMenu,$menu,$content,$nameAlias){
+    public function renderMenu($menu,$nameAlias,$allMenu=null,$content=null){
         $contents=json_decode($menu->$content);
         foreach ($contents->menus as $decode) {
             if (isset($decode->menuItem)) {
-                $dropMenuAll = $this->Menuarr($allMenu,$decode->menuItem,$content,$nameAlias);
+                if(!isset(Yii::$app->modules['menu']->modelDb)) {
+                    $allMenu=Menu::find()->all();
+                    $content='content';
+                }
+                $dropMenuAll = $this->Menuarr($allMenu,$decode->menuItem,$content,$nameAlias);// встроиная таблица забыл
                 $arrMenu[] = ['label' => $decode->text, 'url' => '', 'items' => $dropMenuAll];
             }elseif(isset($decode->depthMenu)){
                 $dropMenuAll = $this->menuDepthArr($decode->depthMenu);
@@ -99,7 +103,7 @@ class Menu extends ActiveRecord
         return $arrMenu;
     }
 
-    public function Menuarr($allMenu,$parentId,$content,$nameAlias){
+    public function Menuarr($allMenu,$parentId,$content){
         $item=[];
         foreach ($allMenu as $menu){
             if($menu->id==$parentId){

@@ -62,4 +62,18 @@ frontend
 + **navWidget** - Какой виджет использоваться menu = Menu, navbar = NavBar
 + в остальном я попытался подключить все настройки этих виджетов
 
+если вам не желаете использовать подключение этой модели sirgalas\menu\models\Menu
+ и её метода renderMenu у которого обязательный атрибут является вызываемое меню и наименование гет параметра которое будет использоваться в роутинге.
+ Пердположительно такокая запись
+ ```php
+  $modelMenu= new Menu();
+  $modelMenu->renderMenu($menu,'alias');
+  ```
+ А в случае использования встроиной таблицы необходимо указать атрибуты в следуюшем порядке
+ ```php
+    $modelMenu= new Menu();
+    $modelMenu->renderMenu($allMenu,$menu,'content','alias');
+ ```
+
+
 миграция php yii migrate/ --migrationPath=@vendor/sirgalas/yii2-wordperss-menu/migrations
