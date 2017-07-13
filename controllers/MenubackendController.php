@@ -11,6 +11,7 @@ use sirgalas\menu\models\MenuGet;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use Yii;
+use sirgalas\menu\models\Menu;
 
 class MenubackendController extends Controller
 {
@@ -173,8 +174,7 @@ class MenubackendController extends Controller
         $this->findModel($id)->delete();
         return $this->redirect('index');
     }
-
-
+    
 
         protected function findModel($id)
         {

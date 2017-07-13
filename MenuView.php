@@ -43,7 +43,10 @@ class MenuView extends Widget
             $modelMenu= new Menu();
             $menu=$menuModel::find()->where([$model->getName()=>$this->name])->one();
             $content=$model->getContent();
+            $allMenu=$menuModel::find()->where([$model->getServiceField()=>$model->getNameServiceField()])->all();
+
         }else{
+            $allMenu=Menu::find()->all();
             $menu=Menu::find()->where(['name'=>$this->name])->one();
             $content='content';
         }
@@ -89,6 +92,7 @@ class MenuView extends Widget
                 'model'         =>  $model,
                 'content'       =>  $content,
                 'modelMenu'     =>  $modelMenu,
+                'allMenu'       =>  $allMenu,
                 'nameAlias'     =>  $this->nameAlias,
                 'navWidget'     =>  $this->navWidget,
                 'brandUrl'      =>  $this->brandUrl,
@@ -103,11 +107,13 @@ class MenuView extends Widget
                 'linkTemplate'      =>  $linkTemplate,
                 'activeCssClass'    =>  $activeCssClass,
                 'firstItemCssClass' =>  $firstItemCssClass,
-                'lastItemCssClass'  =>  $lastItemCssClass
+                'lastItemCssClass'  =>  $lastItemCssClass,
+
+
             ]); 
         }else{
             $modelMenu= new Menu();
-            return $modelMenu->renderMenu($menu,$content,$this->nameAlias);
+            return $this->controller->renderPartial($modelMenu->renderMenu($allMenu,$menu,$content,$this->nameAlias));
         }
         
     }

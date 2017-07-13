@@ -46,40 +46,100 @@ class Menu extends ActiveRecord
 
         return $returnArray;
     }
-    public function Menu($menu){
-        if(isset(Yii::$app->modules['menu']['modelDb'])) {
-            $menuModel = Yii::$app->modules['menu']['modelDb'];
-            $munuItem = $menuModel::findOne($menu);
-        }else{
-            $munuItem=Menu::findOne($menu);
-        }
-        return $munuItem;
-    }
-
-    public function renderMenu($menu,$content,$nameAlias){
-        $contents=json_decode($menu->$content);
-        foreach ($contents->menus as $decode) {
-            if (isset($decode->menuItem)) {
-                $dropMenuAll = $this->Menu($decode->menuItem);
-                $dropMenu = json_decode($dropMenuAll->$content);
+    public function Menu($menus,$parentId,$content,$nameAlias){
+        $item=[];
+        foreach ($menus as $menu){
+            if($menu->id==$parentId){
+                $dropMenu = json_decode($menu->$content);
                 $dropMenuArr = array();
                 $objectVars = get_object_vars($dropMenu);
                 foreach ($objectVars as $key => $value) {
                     if (strpos($key,'extra') ===0) {
                         foreach ($value as $jsonDecode) {
-                            $dropMenuArr[] = ['label' => $jsonDecode->title, 'url' => [$jsonDecode->path, $nameAlias => $jsonDecode->alias, 'option' => ['class' => 'extra']]];
+                            $item[] = [
+                                'label' => $jsonDecode->title,
+                                'url' => [
+                                    $jsonDecode->path,
+                                    $nameAlias => $jsonDecode->alias,
+                                    'option' => ['class' => 'extra']
+                                ]
+                            ];
                         }
                     }else{
                         foreach ($value as $jsonDecode) {
-                            $dropMenuArr[] = ['label' => $jsonDecode->title, 'url' => [$jsonDecode->path,$nameAlias=>$jsonDecode->alias]];
+                            $item[] = [
+                                'label' => $jsonDecode->title,
+                                'url' => [
+                                    $jsonDecode->path,
+                                    $nameAlias=>$jsonDecode->alias
+                                ]
+                            ];
                         }
                     }
                 }
-                $arrMenu[] = ['label' => $decode->text, 'url' => '', 'items' => $dropMenuArr, 'linkOptions'=>['data-toggle'=>'not']];
-            } else {
+            }
+        }
+        return $item;
+    }
+
+    public function renderMenu($allMenu,$menu,$content,$nameAlias){
+        $contents=json_decode($menu->$content);
+        foreach ($contents->menus as $decode) {
+            if (isset($decode->menuItem)) {
+                $dropMenuAll = $this->Menuarr($allMenu,$decode->menuItem,$content,$nameAlias);
+                $arrMenu[] = ['label' => $decode->text, 'url' => '', 'items' => $dropMenuAll];
+            }elseif(isset($decode->depthMenu)){
+                $dropMenuAll = $this->menuDepthArr($decode->depthMenu);
+                $arrMenu[] = ['label' => $decode->text, 'url' => '', 'items' => $dropMenuAll];
+            }
+            else {
                 $arrMenu[] = ['label' => $decode->title,'url' => [$decode->path,$nameAlias=>$decode->alias]];
             }
         }
-        return var_dump($arrMenu);
+        return $arrMenu;
+    }
+
+    public function Menuarr($allMenu,$parentId,$content,$nameAlias){
+        $item=[];
+        foreach ($allMenu as $menu){
+            if($menu->id==$parentId){
+                $dropMenu = json_decode($menu->$content);
+                $objectVars = get_object_vars($dropMenu);
+                foreach ($objectVars as $key => $value) {
+                    if (strpos($key, 'extra') === 0) {
+                        foreach ($value as $keys => $val) {
+                            $item[$keys]=$val;
+                        }
+                        $item['option']='extra';
+                    }else{
+                        foreach ($value as $keys => $val) {
+                            $item[$keys]=$val;
+                        }
+                        $item['option']='menu';
+                    }
+                }
+            }
+        }
+        return $item;
+    }
+
+    public function menuDepthArr($menus)
+    {
+        $item=[];
+        $objectVars = get_object_vars($menus);
+        foreach ($objectVars as $key => $value) {
+            if (strpos($key, 'extra') === 0) {
+                foreach ($value as $keys => $val) {
+                    $item[$keys]=$val;
+                }
+                $item['option']='extra';
+            }else{
+                foreach ($value as $keys => $val) {
+                    $item[$keys]=$val;
+                }
+                $item['option']='menu';
+            }
+        }
+        return $item;
     }
 }
