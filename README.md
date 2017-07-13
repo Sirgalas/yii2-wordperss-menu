@@ -60,6 +60,6 @@ frontend
 + **name** - id базы
 + **nameAlias** - как в pattern будет называться get - запрос
 + **navWidget** - Какой виджет использоваться menu = Menu, navbar = NavBar
-+ в остальном я попытался подключить все настройки этих виджетов 
++ в остальном я попытался подключить все настройки этих виджетов
 
 миграция php yii migrate/ --migrationPath=@vendor/sirgalas/yii2-wordperss-menu/migrations
