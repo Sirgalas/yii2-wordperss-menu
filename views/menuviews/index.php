@@ -55,4 +55,4 @@ if($navWidget=='navbar'){
     NavBar::end();
 }
 
- ?>
+ ?> 
