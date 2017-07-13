@@ -34,4 +34,32 @@ backend/config/main.php
 + **path** - путь для роутинга на frontend
 + **image** - если вы хотите добавлять картинки
 
+---
+common
+``` php
+common\config\main.php
+'menu'  =>[
+            'class' =>  'sirgalas\menu\MenuModule',
+            'modelDb' =>  '\common\models\FrontendSetup',
+        ],
+```
++ **modelDb** - в случае если используется своя база данных  без использования миграции
+
+---
+frontend
+```php
+<?= MenuView::widget([
+       'name'              =>  'Футер право',
+       'nameAlias'         =>  'slug',
+       'navWidget'         =>  'menu',
+       'navBarOption' => ['class' => false,],
+       'linkTemplate' => '<a href="{url}"><span class="fa fa-angle-right"></span>{label}</a>',
+]);
+?>
+```
++ **name** - id базы
++ **nameAlias** - как в pattern будет называться get - запрос
++ **navWidget** - Какой виджет использоваться menu = Menu, navbar = NavBar
++ в остальном я попытался подключить все настройки этих виджетов 
+
 миграция php yii migrate/ --migrationPath=@vendor/sirgalas/yii2-wordperss-menu/migrations
